@@ -2,8 +2,8 @@ package com.twinker.persistence.repository;
 
 import com.twinker.persistence.model.Model;
 import com.twinker.persistence.utils.CsvHandler;
+import com.twinker.persistence.utils.ModelMapper;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,19 +22,18 @@ public abstract class Repository<T extends Model> {
     }
 
     public List<T> getAll() {
-        List<T> lista = new ArrayList<>();
-        List<String[]> datos = csvHandler.readCSV();
+        List<T> list = new ArrayList<>();
+        List<String[]> data = csvHandler.readCSV();
 
-        for (String[] fila : datos) {
+        for (String[] row : data) {
             try {
-                Constructor<T> constructor = type.getDeclaredConstructor(String[].class);
-                T obj = constructor.newInstance((Object) fila);
-                lista.add(obj);
+                T obj = ModelMapper.arrayToModel(type, row);
+                list.add(obj);
             } catch (Exception e) {
                 logger.log(Level.SEVERE, e.toString());
             }
         }
-        return lista;
+        return list;
     }
 
     public Optional<T> searchById(String id) {
@@ -43,19 +42,19 @@ public abstract class Repository<T extends Model> {
                 .findFirst();
     }
 
-    public void save(T objeto) {
-        List<String[]> datos = csvHandler.readCSV();
-        datos.add(objeto.toString().split(","));
-        csvHandler.writeCSV(datos);
+    public void save(T object) {
+        List<String[]> data = csvHandler.readCSV();
+        data.add(ModelMapper.modelToArray(object));
+        csvHandler.writeCSV(data);
     }
 
     public void deleteById(String id) {
-        List<String[]> datos = new ArrayList<>();
+        List<String[]> data = new ArrayList<>();
         for (T obj : getAll()) {
             if (!id.equals(obj.getId())) {
-                datos.add(obj.toString().split(","));
+                data.add(ModelMapper.modelToArray(obj));
             }
         }
-        csvHandler.writeCSV(datos);
+        csvHandler.writeCSV(data);
     }
 }

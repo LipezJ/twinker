@@ -16,22 +16,22 @@ public class CsvHandler {
     }
 
     public List<String[]> readCSV() {
-        List<String[]> datos = new ArrayList<>();
+        List<String[]> data = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                datos.add(linea.split(","));
+            String line;
+            while ((line = br.readLine()) != null) {
+                data.add(line.split(","));
             }
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error reading the CSV file from the path: " + filePath);
         }
-        return datos;
+        return data;
     }
 
     public void writeCSV(List<String[]> datos) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            for (String[] fila : datos) {
-                bw.write(String.join(",", fila));
+            for (String[] row : datos) {
+                bw.write(String.join(",", row));
                 bw.newLine();
             }
         } catch (IOException e) {
