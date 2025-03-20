@@ -1,27 +1,27 @@
 package com.twinker.persistence.utils;
 
-import com.twinker.persistence.model.Model;
+import com.twinker.domain.entity.Entity;
 
 import java.lang.reflect.Field;
 
-public class ModelMapper {
-    public static String[] modelToArray(Model model) {
-        Field[] declaredFields = model.getClass().getDeclaredFields();
+public class EntityMapper {
+    public static String[] entityToArray(Entity entity) {
+        Field[] declaredFields = entity.getClass().getDeclaredFields();
         String[] list = new String[declaredFields.length];
 
         for (int i = 0; i < declaredFields.length; i++) {
             declaredFields[i].setAccessible(true);
             try {
-                Object fieldObject = declaredFields[i].get(model);
+                Object fieldObject = declaredFields[i].get(entity);
                 list[i] = fieldObject.toString();
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("Error mapping model to data", e);
+                throw new RuntimeException("Error mapping entity to data", e);
             }
         }
         return list;
     }
 
-    public static <T extends Model> T arrayToModel(Class<T> clazz, String[] data) {
+    public static <T extends Entity> T arrayToEntity(Class<T> clazz, String[] data) {
         try {
             T instance = clazz.getDeclaredConstructor().newInstance();
             Field[] fields = clazz.getDeclaredFields();
@@ -32,7 +32,7 @@ public class ModelMapper {
             }
             return instance;
         } catch (Exception e) {
-            throw new RuntimeException("Error mapping data to model", e);
+            throw new RuntimeException("Error mapping data to entity", e);
         }
     }
 
