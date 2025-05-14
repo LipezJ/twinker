@@ -54,7 +54,7 @@ public abstract class Repository<T extends Entity> {
         List<T> data = getAll();
         List<String[]> newData = new ArrayList<>();
         for (T datum : data) {
-            if (!object.getId().equals(datum.getId())) {
+            if (object.getId().equals(datum.getId())) {
                 newData.add(EntityMapper.entityToArray(object));
             } else {
                 newData.add(EntityMapper.entityToArray(datum));
