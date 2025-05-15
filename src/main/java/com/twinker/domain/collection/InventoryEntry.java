@@ -3,44 +3,29 @@ package com.twinker.domain.collection;
 import com.twinker.domain.entity.Inventory;
 import com.twinker.domain.entity.Product;
 
-public class InventoryEntry {
-    private final String id;
-    private final String productId;
-    private final double quantity;
-    private final String name;
-    private final double price;
-    private final String description;
-
-    public InventoryEntry(Product product, Inventory inventory) {
-        id = inventory.getId();
-        productId = inventory.getProductId();
-        quantity = inventory.getQuantity();
-        name = product.getName();
-        price = product.getPrice();
-        description = product.getDescription();
-    }
+public record InventoryEntry(Product product, Inventory inventory) {
 
     public String getId() {
-        return id;
+        return inventory.getId();
     }
 
     public String getProductId() {
-        return productId;
+        return product.getId();
     }
 
     public double getQuantity() {
-        return quantity;
+        return inventory.getQuantity();
     }
 
     public String getName() {
-        return name;
+        return product.getName();
     }
 
     public double getPrice() {
-        return price;
+        return product.getPrice();
     }
 
     public String getDescription() {
-        return description;
+        return product.getDescription();
     }
 }

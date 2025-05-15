@@ -2,8 +2,6 @@ package com.twinker.presentation.controller;
 
 import com.twinker.application.InventoryService;
 import com.twinker.domain.collection.InventoryEntry;
-import com.twinker.presentation.form.InventoryEditFormDialog;
-import com.twinker.presentation.form.InventoryFormDialog;
 import com.twinker.presentation.view.InventoryView;
 
 import javax.swing.*;
@@ -20,12 +18,12 @@ public class InventoryController extends ProtectedController {
 
     public void onLoadInventory() {
         List<InventoryEntry> inventory = inventoryService.getAllItems();
-        view.loadInventory(inventory);
+        view.showInventory(inventory);
     }
 
     public void onSearchInventory(String query) {
         List<InventoryEntry> inventory = inventoryService.searchInventory(query);
-        view.loadInventory(inventory);
+        view.showInventory(inventory);
     }
 
     public void onAddEntry(JDialog modal, String name, String price, String description, String quantity) {
@@ -43,6 +41,12 @@ public class InventoryController extends ProtectedController {
 
         JOptionPane.showMessageDialog(modal, "Producto agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         modal.dispose();
+    }
+
+    public void onDeleteEntry(InventoryEntry entry) {
+        inventoryService.deleteEntry(entry.getId(), entry.getProductId());
+
+        JOptionPane.showMessageDialog(view, "Producto eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void onEditEntry(JDialog modal, String inventoryId, String name, String price, String description, String quantity) {
@@ -67,19 +71,27 @@ public class InventoryController extends ProtectedController {
         boolean allowed = openVerifyPinForm(frame);
 
         if (allowed) {
-            InventoryFormDialog dialog = new InventoryFormDialog(frame, this);
-            dialog.setVisible(true);
+            view.showCreateForm();
             onLoadInventory();
         }
     }
 
-    public void onOpenEditForm(InventoryEntry item) {
+    public void onOpenDeleteForm(InventoryEntry entry) {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(view);
+        boolean allowed = openVerifyPinForm(frame);
+
+        if (!allowed) return;
+
+        view.showConfirmDeleteDialog(entry);
+        onLoadInventory();
+    }
+
+    public void onOpenEditForm(InventoryEntry entry) {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(view);
         boolean allowed = openVerifyPinForm(frame);
 
         if (allowed) {
-            InventoryEditFormDialog dialog = new InventoryEditFormDialog(frame, this, item);
-            dialog.setVisible(true);
+            view.showEditForm(entry);
             onLoadInventory();
         }
     }

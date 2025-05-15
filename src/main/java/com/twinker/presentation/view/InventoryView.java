@@ -2,6 +2,8 @@ package com.twinker.presentation.view;
 
 import com.twinker.domain.collection.InventoryEntry;
 import com.twinker.presentation.controller.InventoryController;
+import com.twinker.presentation.form.InventoryEditFormDialog;
+import com.twinker.presentation.form.InventoryFormDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,7 +49,7 @@ public class InventoryView extends JPanel {
         content.add(openFormButton, BorderLayout.SOUTH);
     }
 
-    public void loadInventory(List<InventoryEntry> inventory) {
+    public void showInventory(List<InventoryEntry> inventory) {
         if (itemsPanel == null) {
             itemsPanel = new JPanel();
             itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
@@ -75,11 +77,21 @@ public class InventoryView extends JPanel {
             info.add(new JLabel("Precio: $" + item.getPrice()));
             card.add(info, BorderLayout.CENTER);
 
+            JPanel actionsPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+            actionsPanel.setBackground(getBackground());
+            actionsPanel.setMaximumSize(new Dimension(50, 100));
+
+            JButton delete = new JButton("🗑️");
+            delete.setPreferredSize(new Dimension(40, 40));
+            delete.addActionListener(_ -> inventoryController.onOpenDeleteForm(item));
+
             JButton edit = new JButton("✎");
             edit.setPreferredSize(new Dimension(40, 40));
             edit.addActionListener(_ -> inventoryController.onOpenEditForm(item));
 
-            card.add(edit, BorderLayout.EAST);
+            actionsPanel.add(delete, BorderLayout.WEST);
+            actionsPanel.add(edit, BorderLayout.EAST);
+            card.add(actionsPanel, BorderLayout.EAST);
             card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
 
             itemsPanel.add(card);
@@ -88,5 +100,30 @@ public class InventoryView extends JPanel {
 
         itemsPanel.revalidate();
         itemsPanel.repaint();
+    }
+
+    public void showCreateForm() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        InventoryFormDialog dialog = new InventoryFormDialog(frame, inventoryController);
+        dialog.setVisible(true);
+    }
+
+    public void showEditForm(InventoryEntry entry) {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        InventoryEditFormDialog dialog = new InventoryEditFormDialog(frame, inventoryController, entry);
+        dialog.setVisible(true);
+    }
+
+    public void showConfirmDeleteDialog(InventoryEntry entry) {
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                String.format("¿Desea eliminar %s elemento(s)?", entry.getName()),
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (option != JOptionPane.YES_OPTION) return;
+        inventoryController.onDeleteEntry(entry);
     }
 }

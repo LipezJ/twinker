@@ -36,6 +36,17 @@ public class InventoryService {
         return productInventory;
     }
 
+    public Inventory getInventoryByProduct(Product product) {
+        Optional<Inventory> inventory = inventoryRepository.getByProductId(product.getId());
+
+        if (inventory.isEmpty()) {
+            logger.warning("There is not a Product with ID " + product.getId());
+            return null;
+        }
+
+        return inventory.get();
+    }
+
     public List<InventoryEntry> searchInventory(String query) {
         String lowerQuery = query.toLowerCase();
         List<InventoryEntry> allItems = getAllItems();
@@ -77,5 +88,17 @@ public class InventoryService {
 
         inventoryRepository.update(inventory);
         productRepository.update(product);
+    }
+
+    public void deleteEntry(String inventoryId, String productId) {
+        Optional<Inventory> inventoryOptional = inventoryRepository.searchById(inventoryId);
+        if (inventoryOptional.isEmpty()) return;
+
+        Inventory inventory = inventoryOptional.get();
+
+        if (!productId.equals(inventory.getProductId())) return;
+
+        inventoryRepository.deleteById(inventoryId);
+        productRepository.deleteById(productId);
     }
 }
