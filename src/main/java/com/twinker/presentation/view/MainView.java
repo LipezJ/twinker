@@ -54,17 +54,16 @@ public class MainView extends JFrame {
             btn.setToolTipText(name);
             btn.setForeground(Color.WHITE);
             btn.setFont(btn.getFont().deriveFont(Font.BOLD, 18f));
-            btn.addActionListener(e -> showCard(name));
+            btn.addActionListener(_ -> showCard(name));
             sidebar.add(btn);
             sidebar.add(Box.createVerticalStrut(12));
             group.add(btn);
 
-            if ("Ventas".equals(name)) {
-                mainPanel.add(new SalesView(), name);
-            } else if ("Inventarios".equals(name)) {
-                mainPanel.add(new InventoryView(), name);
-            } else {
-                mainPanel.add(createPlaceholder(name), name);
+            switch (name) {
+                case "Ventas" -> mainPanel.add(new SalesView(), name);
+                case "Clientes" -> mainPanel.add(new ClientsView(), name);
+                case "Inventarios" -> mainPanel.add(new InventoryView(), name);
+                default -> mainPanel.add(createPlaceholder(name), name);
             }
         }
 

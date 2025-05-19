@@ -9,13 +9,10 @@ import com.twinker.persistence.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 public class InventoryService {
-    private static final Logger logger = Logger.getLogger(InventoryService.class.getName());
-
-    public InventoryRepository inventoryRepository;
-    public ProductRepository productRepository;
+    public final InventoryRepository inventoryRepository;
+    public final ProductRepository productRepository;
 
     public InventoryService() {
         inventoryRepository = new InventoryRepository();
@@ -27,24 +24,9 @@ public class InventoryService {
         List<Inventory> inventory = inventoryRepository.getAll();
         for (Inventory inventoryItem : inventory) {
             Optional<Product> product = productRepository.getById(inventoryItem.getProductId());
-            if (product.isPresent()) {
-                productInventory.add(new InventoryEntry(product.get(), inventoryItem));
-            } else {
-                logger.warning("There is not a Product with ID " + inventoryItem.getId());
-            }
+            product.ifPresent(value -> productInventory.add(new InventoryEntry(value, inventoryItem)));
         }
         return productInventory;
-    }
-
-    public Inventory getInventoryByProduct(Product product) {
-        Optional<Inventory> inventory = inventoryRepository.getByProductId(product.getId());
-
-        if (inventory.isEmpty()) {
-            logger.warning("There is not a Product with ID " + product.getId());
-            return null;
-        }
-
-        return inventory.get();
     }
 
     public List<InventoryEntry> searchInventory(String query) {

@@ -25,15 +25,13 @@ public class InventoryFormDialog extends FormDialog {
         JButton createButton = addButton("Agregar al Inventario");
         createButton.setBackground(new Color(46, 204, 113));
         createButton.setForeground(Color.WHITE);
-        createButton.addActionListener(_ -> {
-            controller.onAddEntry(
-                    this,
-                    nameField.getText(),
-                    priceField.getText(),
-                    descriptionField.getText(),
-                    quantityField.getText()
-            );
-        });
+        createButton.addActionListener(_ -> controller.onAddEntry(
+                this,
+                nameField.getText(),
+                priceField.getText(),
+                descriptionField.getText(),
+                quantityField.getText()
+        ));
 
         finalizeDialog();
     }

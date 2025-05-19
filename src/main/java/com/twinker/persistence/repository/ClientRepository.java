@@ -5,6 +5,6 @@ import com.twinker.domain.entity.Client;
 
 public class ClientRepository extends Repository<Client> {
     public ClientRepository() {
-        super(DataConfig.get("client.csv.path"), Client.class);
+        super(DataConfig.get("clients.csv.path"), Client.class);
     }
 }
