@@ -16,6 +16,10 @@ public class InventoryController extends ProtectedController {
         inventoryService = new InventoryService();
     }
 
+    public void init() {
+        onLoadInventory();
+    }
+
     public void onLoadInventory() {
         List<InventoryEntry> inventory = inventoryService.getAllItems();
         view.showInventory(inventory);

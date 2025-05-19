@@ -40,13 +40,14 @@ public class ClientsView extends JPanel {
         clientsPanel = new JPanel();
         clientsPanel.setLayout(new BoxLayout(clientsPanel, BoxLayout.Y_AXIS));
         clientsPanel.setBackground(getBackground());
-        clientsController.onLoadClients();
         content.add(clientsPanel);
 
         JButton openFormButton = new JButton("Agregar Cliente");
         openFormButton.setPreferredSize(new Dimension(180, 30));
         openFormButton.addActionListener(_ -> clientsController.onOpenCreateForm());
         content.add(openFormButton, BorderLayout.SOUTH);
+
+        clientsController.initClients();
     }
 
     public void showInventory(List<Client> clients) {

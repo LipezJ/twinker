@@ -11,6 +11,8 @@ import com.twinker.presentation.form.SalesConfirmFormDialog;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 
 public class SalesView extends JPanel {
@@ -52,9 +54,13 @@ public class SalesView extends JPanel {
         cartPanel = new SalesCartPanel(controller);
         center.add(cartPanel, BorderLayout.EAST);
 
-        controller.init();
-
         content.add(center, BorderLayout.CENTER);
+
+        controller.init();
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) { controller.onLoadSales(); }
+        });
     }
 
     public void showClientForm(List<Client> clients) {

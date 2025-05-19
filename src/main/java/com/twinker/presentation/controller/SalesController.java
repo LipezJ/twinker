@@ -26,10 +26,10 @@ public class SalesController {
     }
 
     public void init() {
-        onLoad();
+        onLoadSales();
     }
 
-    public void onLoad() {
+    public void onLoadSales() {
         List<InventoryEntry> products = inventoryService.getAllItems();
         view.showProducts(products);
     }

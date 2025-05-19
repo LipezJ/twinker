@@ -16,6 +16,10 @@ public class ClientsController extends ProtectedController {
         this.clientService = new ClientService();
     }
 
+    public void initClients() {
+        onLoadClients();
+    }
+
     public void onLoadClients() {
         List<Client> inventory = clientService.getAllClients();
         view.showInventory(inventory);

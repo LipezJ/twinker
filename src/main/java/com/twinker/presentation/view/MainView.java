@@ -63,7 +63,7 @@ public class MainView extends JFrame {
                 case "Ventas" -> mainPanel.add(new SalesView(), name);
                 case "Clientes" -> mainPanel.add(new ClientsView(), name);
                 case "Inventarios" -> mainPanel.add(new InventoryView(), name);
-                default -> mainPanel.add(createPlaceholder(name), name);
+                default -> mainPanel.add(showPlaceholder(name), name);
             }
         }
 
@@ -78,7 +78,7 @@ public class MainView extends JFrame {
         cardLayout.show(mainPanel, name);
     }
 
-    private JPanel createPlaceholder(String text) {
+    private JPanel showPlaceholder(String text) {
         JPanel p = new JPanel(new BorderLayout());
         p.setBackground(UIManager.getColor("Panel.background"));
         JLabel l = new JLabel(text, SwingConstants.CENTER);

@@ -7,6 +7,8 @@ import com.twinker.presentation.form.InventoryFormDialog;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 
 public class InventoryView extends JPanel {
@@ -40,13 +42,18 @@ public class InventoryView extends JPanel {
         itemsPanel = new JPanel();
         itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
         itemsPanel.setBackground(getBackground());
-        inventoryController.onLoadInventory();
         content.add(itemsPanel);
 
         JButton openFormButton = new JButton("Agregar Producto");
         openFormButton.setPreferredSize(new Dimension(180, 30));
         openFormButton.addActionListener(_ -> inventoryController.onOpenCreateForm());
         content.add(openFormButton, BorderLayout.SOUTH);
+
+        inventoryController.init();
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) { inventoryController.onLoadInventory(); }
+        });
     }
 
     public void showInventory(List<InventoryEntry> inventory) {
