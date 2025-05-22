@@ -3,12 +3,14 @@ package com.twinker.domain.entity;
 import java.util.UUID;
 
 public class Product extends Entity {
-    private String id;
+    private final String id;
     private String name;
     private double price;
     private String description;
 
-    public Product() { }
+    public Product() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     public Product(String name, double price, String description) {
         this.id = UUID.randomUUID().toString();

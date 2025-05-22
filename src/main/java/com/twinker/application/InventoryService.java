@@ -29,6 +29,10 @@ public class InventoryService {
         return productInventory;
     }
 
+    public List<Product> getProducts() {
+        return productRepository.getAll();
+    }
+
     public List<InventoryEntry> searchInventory(String query) {
         String lowerQuery = query.toLowerCase();
         List<InventoryEntry> allItems = getAllItems();

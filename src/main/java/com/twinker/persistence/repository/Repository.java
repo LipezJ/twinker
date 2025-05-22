@@ -36,6 +36,16 @@ public abstract class Repository<T extends Entity> {
         return list;
     }
 
+    public Optional<T> getById(String id) {
+        List<T> values = getAll();
+
+        if (id == null) return Optional.empty();
+
+        return values.stream()
+                .filter(value -> id.equals(value.getId()))
+                .findFirst();
+    }
+
     public void insert(T object) {
         List<String[]> data = csvHandler.readCSV();
         data.add(EntityMapper.entityToArray(object));

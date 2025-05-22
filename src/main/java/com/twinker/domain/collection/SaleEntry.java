@@ -24,8 +24,4 @@ public record SaleEntry(Sale sale, Product product) {
     public double getUnitPrice() {
         return product.getPrice();
     }
-
-    public void aggregate() {
-        sale.aggregate();
-    }
 }

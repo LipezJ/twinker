@@ -41,7 +41,7 @@ public class MainView extends JFrame {
         sidebar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         sidebar.setPreferredSize(new Dimension(100, 0));
 
-        String[] names = {"Ventas", "Clientes", "Inventarios", "Estadísticas", "Vender"};
+        String[] names = {"Ventas", "Clientes", "Inventarios", "Estadísticas", "Contabilidad"};
         ButtonGroup group = new ButtonGroup();
 
         cardLayout = new CardLayout();
@@ -63,6 +63,7 @@ public class MainView extends JFrame {
                 case "Ventas" -> mainPanel.add(new SalesView(), name);
                 case "Clientes" -> mainPanel.add(new ClientsView(), name);
                 case "Inventarios" -> mainPanel.add(new InventoryView(), name);
+                case "Contabilidad" -> mainPanel.add(new AccountingView(), name);
                 default -> mainPanel.add(showPlaceholder(name), name);
             }
         }
