@@ -20,6 +20,14 @@ public class PinService {
         }
     }
 
+    public boolean existsPin() {
+        try {
+            return PinKeyStoreStorage.existsPin();
+        } catch (Exception e) {
+            throw new PinServiceException("Error al verificar el PIN", e);
+        }
+    }
+
     public void clearPin() {
         try {
             PinKeyStoreStorage.clearPin();

@@ -2,6 +2,8 @@ package com.twinker.presentation.view;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.twinker.presentation.component.CircleButton;
+import com.twinker.presentation.controller.MainController;
+import com.twinker.presentation.form.MainSetupAppFormDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +15,14 @@ public class MainView extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
 
+    private final MainController mainController;
+
     public MainView() {
         super("Twinker");
+        mainController = new MainController(this);
+
         initUI();
-        setVisible(true);
+        mainController.init();
     }
 
     private void initUI() {
@@ -41,7 +47,7 @@ public class MainView extends JFrame {
         sidebar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         sidebar.setPreferredSize(new Dimension(100, 0));
 
-        String[] names = {"Ventas", "Clientes", "Inventarios", "Estadísticas", "Contabilidad"};
+        String[] names = {"Home", "Ventas", "Clientes", "Inventarios", "Estadísticas", "Contabilidad"};
         ButtonGroup group = new ButtonGroup();
 
         cardLayout = new CardLayout();
@@ -60,6 +66,7 @@ public class MainView extends JFrame {
             group.add(btn);
 
             switch (name) {
+                case "Home" -> mainPanel.add(new HomeView(), name);
                 case "Ventas" -> mainPanel.add(new SalesView(), name);
                 case "Clientes" -> mainPanel.add(new ClientsView(), name);
                 case "Inventarios" -> mainPanel.add(new InventoryView(), name);
@@ -74,6 +81,8 @@ public class MainView extends JFrame {
 
         content.add(sidebar, BorderLayout.WEST);
         content.add(mainPanel, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
     private void showCard(String name) {
@@ -88,5 +97,12 @@ public class MainView extends JFrame {
         l.setForeground(UIManager.getColor("Label.foreground"));
         p.add(l, BorderLayout.CENTER);
         return p;
+    }
+
+    public void showSetUpForm() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        MainSetupAppFormDialog dialog = new MainSetupAppFormDialog(frame, mainController);
+        dialog.setVisible(true);
     }
 }

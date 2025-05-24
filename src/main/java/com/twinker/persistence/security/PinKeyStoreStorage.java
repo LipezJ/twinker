@@ -1,5 +1,7 @@
 package com.twinker.persistence.security;
 
+import com.twinker.application.security.PinServiceException;
+
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
@@ -62,6 +64,10 @@ public class PinKeyStoreStorage {
         byte[] candidateBytes = candidatePin.getBytes(StandardCharsets.UTF_8);
 
         return MessageDigest.isEqual(storedBytes, candidateBytes);
+    }
+
+    public static boolean existsPin() {
+        return KEYSTORE_FILE.exists();
     }
 
     public static void clearPin() throws Exception {
