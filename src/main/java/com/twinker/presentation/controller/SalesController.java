@@ -5,15 +5,11 @@ import com.twinker.application.ClientService;
 import com.twinker.application.InventoryService;
 import com.twinker.domain.collection.InventoryEntry;
 import com.twinker.domain.collection.SaleEntry;
-import com.twinker.domain.model.Client;
-import com.twinker.domain.model.Inventory;
-import com.twinker.presentation.component.SalesProductCard;
+import com.twinker.domain.entity.Client;
 import com.twinker.presentation.view.SalesView;
 
 import javax.swing.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SalesController {
     private final SalesView view;

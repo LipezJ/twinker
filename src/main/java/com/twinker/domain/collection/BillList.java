@@ -1,8 +1,8 @@
 package com.twinker.domain.collection;
 
-import com.twinker.domain.model.Bill;
-import com.twinker.domain.model.Product;
-import com.twinker.domain.model.Sale;
+import com.twinker.domain.entity.Bill;
+import com.twinker.domain.entity.Product;
+import com.twinker.domain.entity.Sale;
 
 import java.util.ArrayList;
 import java.util.Iterator;

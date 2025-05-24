@@ -1,6 +1,6 @@
 package com.twinker.presentation.form;
 
-import com.twinker.domain.model.Client;
+import com.twinker.domain.entity.Client;
 import com.twinker.presentation.controller.ClientsController;
 
 import javax.swing.*;

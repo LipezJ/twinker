@@ -1,4 +1,4 @@
-package com.twinker.domain;
+package com.twinker.domain.entity;
 
 public abstract class Entity {
     public abstract String getId();

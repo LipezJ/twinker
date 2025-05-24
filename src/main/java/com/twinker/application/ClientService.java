@@ -1,6 +1,6 @@
 package com.twinker.application;
 
-import com.twinker.domain.model.Client;
+import com.twinker.domain.entity.Client;
 import com.twinker.persistence.repository.ClientRepository;
 
 import java.util.ArrayList;

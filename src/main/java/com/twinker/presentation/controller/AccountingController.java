@@ -4,8 +4,8 @@ import com.twinker.application.BillService;
 import com.twinker.application.ClientService;
 import com.twinker.application.InventoryService;
 import com.twinker.domain.collection.BillEntry;
-import com.twinker.domain.model.Client;
-import com.twinker.domain.model.Product;
+import com.twinker.domain.entity.Client;
+import com.twinker.domain.entity.Product;
 import com.twinker.presentation.view.AccountingView;
 
 import javax.swing.*;

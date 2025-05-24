@@ -3,7 +3,7 @@ package com.twinker.application;
 import com.twinker.domain.collection.BillList;
 import com.twinker.domain.collection.InventoryEntry;
 import com.twinker.domain.collection.SaleEntry;
-import com.twinker.domain.model.*;
+import com.twinker.domain.entity.*;
 import com.twinker.persistence.repository.BillRepository;
 import com.twinker.persistence.repository.InventoryRepository;
 import com.twinker.persistence.repository.SaleRepository;

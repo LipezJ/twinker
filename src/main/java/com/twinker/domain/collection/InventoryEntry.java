@@ -1,7 +1,7 @@
 package com.twinker.domain.collection;
 
-import com.twinker.domain.model.Inventory;
-import com.twinker.domain.model.Product;
+import com.twinker.domain.entity.Inventory;
+import com.twinker.domain.entity.Product;
 
 public record InventoryEntry(Product product, Inventory inventory) {
 

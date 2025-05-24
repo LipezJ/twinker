@@ -1,6 +1,6 @@
 package com.twinker.persistence.utils;
 
-import com.twinker.domain.Entity;
+import com.twinker.domain.entity.Entity;
 
 import java.lang.reflect.Field;
 

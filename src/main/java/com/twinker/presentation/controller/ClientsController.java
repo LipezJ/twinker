@@ -1,7 +1,7 @@
 package com.twinker.presentation.controller;
 
 import com.twinker.application.ClientService;
-import com.twinker.domain.model.Client;
+import com.twinker.domain.entity.Client;
 import com.twinker.presentation.view.ClientsView;
 
 import javax.swing.*;

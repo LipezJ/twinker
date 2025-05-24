@@ -1,8 +1,8 @@
 package com.twinker.presentation.view;
 
 import com.twinker.domain.collection.BillEntry;
-import com.twinker.domain.model.Client;
-import com.twinker.domain.model.Product;
+import com.twinker.domain.entity.Client;
+import com.twinker.domain.entity.Product;
 import com.twinker.presentation.controller.AccountingController;
 import com.twinker.presentation.form.AccountingBillFormDialog;
 

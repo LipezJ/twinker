@@ -1,7 +1,7 @@
 package com.twinker.domain.collection;
 
-import com.twinker.domain.model.Product;
-import com.twinker.domain.model.Sale;
+import com.twinker.domain.entity.Product;
+import com.twinker.domain.entity.Sale;
 
 public record SaleEntry(Sale sale, Product product) {
 

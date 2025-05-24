@@ -2,10 +2,10 @@ package com.twinker.application;
 
 import com.twinker.domain.collection.BillEntry;
 import com.twinker.domain.collection.SaleEntry;
-import com.twinker.domain.model.Bill;
-import com.twinker.domain.model.Client;
-import com.twinker.domain.model.Product;
-import com.twinker.domain.model.Sale;
+import com.twinker.domain.entity.Bill;
+import com.twinker.domain.entity.Client;
+import com.twinker.domain.entity.Product;
+import com.twinker.domain.entity.Sale;
 import com.twinker.persistence.repository.BillRepository;
 import com.twinker.persistence.repository.ClientRepository;
 import com.twinker.persistence.repository.ProductRepository;

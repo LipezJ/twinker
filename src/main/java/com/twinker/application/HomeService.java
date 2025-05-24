@@ -1,6 +1,6 @@
 package com.twinker.application;
 
-import com.twinker.domain.model.Inventory;
+import com.twinker.domain.entity.Inventory;
 import com.twinker.persistence.repository.InventoryRepository;
 import com.twinker.persistence.repository.ProductRepository;
 
