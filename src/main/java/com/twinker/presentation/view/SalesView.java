@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
+import java.util.Map;
 
 public class SalesView extends JPanel {
     private final JTextField searchField;
@@ -81,7 +82,18 @@ public class SalesView extends JPanel {
     public void showProducts(List<InventoryEntry> inventory) {
         productsPanel.removeAll();
         for (InventoryEntry entry : inventory) {
-            SalesProductCard productCard = new SalesProductCard(entry, controller);
+            SalesProductCard productCard = new SalesProductCard(entry, controller, entry.getStock());
+            productCard.setMaximumSize(new Dimension(0, 200));
+            productsPanel.add(productCard);
+        }
+        productsPanel.revalidate();
+        productsPanel.repaint();
+    }
+
+    public void showProductsCurrentStock(Map<InventoryEntry, Integer> currentInventory) {
+        productsPanel.removeAll();
+        for (InventoryEntry entry : currentInventory.keySet()) {
+            SalesProductCard productCard = new SalesProductCard(entry, controller, currentInventory.get(entry));
             productCard.setMaximumSize(new Dimension(0, 200));
             productsPanel.add(productCard);
         }

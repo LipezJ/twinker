@@ -1,6 +1,7 @@
 package com.twinker.application;
 
 import com.twinker.domain.collection.BillList;
+import com.twinker.domain.collection.InventoryEntry;
 import com.twinker.domain.collection.SaleEntry;
 import com.twinker.domain.model.*;
 import com.twinker.persistence.repository.BillRepository;
@@ -8,7 +9,9 @@ import com.twinker.persistence.repository.InventoryRepository;
 import com.twinker.persistence.repository.SaleRepository;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class BillingService {
@@ -43,13 +46,21 @@ public class BillingService {
         return billList.getAmount();
     }
 
+    public int getQuantityInBillByProduct(Product product) {
+        return billList.getQuantityInBillByProduct(product);
+    }
+
     public void removeAll() {
         Bill bill = new Bill();
-        this.billList = new BillList(bill);
+        billList = new BillList(bill);
     }
 
     public void removeSale(SaleEntry sale) {
-        this.billList.removeSale(sale);
+        billList.removeSale(sale);
+    }
+
+    public void removeOneSale(SaleEntry sale) {
+        billList.removeOneSale(sale);
     }
 
     public void confirmBill() {
@@ -75,5 +86,28 @@ public class BillingService {
         }
 
         removeAll();
+    }
+
+    public Map<InventoryEntry, Integer> getCurrentProductInventory(List<InventoryEntry> inventory) {
+        Map<InventoryEntry, Integer> currentInventory = new LinkedHashMap<>();
+
+        inventory.forEach(i -> {
+            int quantityInBill = billList.getQuantityInBillByProduct(i.product());
+            int currentStock = i.getStock() - quantityInBill;
+
+            if (currentStock >= 0) {
+                if (currentStock == 0) {
+                    billList.getSaleByProductId(i.getProductId())
+                            .ifPresent(s -> billList.removeSale(s));
+                }
+                currentInventory.put(i, currentStock);
+            } else {
+                billList.getSaleByProductId(i.getProductId())
+                        .ifPresent(s -> s.sale().setQuantity(quantityInBill - currentStock));
+                currentInventory.put(i, quantityInBill - currentStock);
+            }
+        });
+
+        return currentInventory;
     }
 }

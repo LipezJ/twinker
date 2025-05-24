@@ -42,6 +42,10 @@ public class Sale extends Entity {
         return unitPrice;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public void aggregate() {
         quantity++;
     }

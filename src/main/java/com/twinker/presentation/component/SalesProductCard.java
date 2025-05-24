@@ -7,8 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SalesProductCard extends JPanel {
+    private final JPanel info;
 
-    public SalesProductCard(InventoryEntry entry, SalesController controller) {
+    public SalesProductCard(InventoryEntry entry, SalesController controller, int currentStock) {
         setLayout(new BorderLayout());
         setBackground(getBackground());
         setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -18,17 +19,26 @@ public class SalesProductCard extends JPanel {
         thumb.setPreferredSize(new Dimension(80,80));
         add(thumb, BorderLayout.WEST);
 
-        JPanel info = new JPanel(new GridLayout(3,1,5,5));
+        info = new JPanel(new GridLayout(3,1,5,5));
         info.setBackground(getBackground());
-        info.add(new JLabel(entry.getName()));
-        info.add(new JLabel("Stock: " + entry.getStock()));
-        info.add(new JLabel("Precio: $" + entry.getPrice()));
+        updateInfo(entry.getName(), currentStock, entry.getPrice());
         add(info, BorderLayout.CENTER);
 
         JButton addBtn = new JButton("+");
         addBtn.setPreferredSize(new Dimension(40,40));
-        addBtn.addActionListener(_ -> controller.onAddToCart(entry.product()));
+        addBtn.addActionListener(_ -> controller.onAddToCart(entry));
         add(addBtn, BorderLayout.EAST);
+    }
+
+    public void updateInfo(String name, int stock, double price) {
+        info.removeAll();
+
+        info.add(new JLabel(name));
+        info.add(new JLabel("Stock: " + stock));
+        info.add(new JLabel("Precio: $" + price));
+
+        info.revalidate();
+        info.repaint();
     }
 
 }

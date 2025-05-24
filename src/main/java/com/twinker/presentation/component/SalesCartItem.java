@@ -20,10 +20,19 @@ public class SalesCartItem extends JPanel {
         info.add(new JLabel("Cantidad: " + saleEntry.getQuantity() + "  Precio/u: $" + saleEntry.getUnitPrice()));
         add(info, BorderLayout.CENTER);
 
+        JPanel actionPanel = new JPanel();
+
+        JButton removeOne = new JButton("➖");
+        removeOne.setPreferredSize(new Dimension(30,30));
+        removeOne.addActionListener(_ -> controller.onRemoveOneFromCart(saleEntry));
+        actionPanel.add(removeOne);
+
         JButton remove = new JButton("❌");
         remove.setPreferredSize(new Dimension(30,30));
-        remove.addActionListener(e -> controller.onRemoveFromCart(saleEntry));
-        add(remove, BorderLayout.EAST);
+        remove.addActionListener(_ -> controller.onRemoveFromCart(saleEntry));
+        actionPanel.add(remove);
+
+        add(actionPanel, BorderLayout.EAST);
     }
 
 }

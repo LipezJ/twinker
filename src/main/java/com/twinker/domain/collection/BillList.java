@@ -5,6 +5,7 @@ import com.twinker.domain.model.Product;
 import com.twinker.domain.model.Sale;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,16 @@ public class BillList {
         return amount;
     }
 
+    public int getQuantityInBillByProduct(Product product) {
+        List<SaleEntry> sales = getSales();
+
+        for (SaleEntry saleEntry : sales) {
+            if (saleEntry.getProductId().equals(product.getId())) return saleEntry.getQuantity();
+        }
+
+        return 0;
+    }
+
     public void addSale(Sale sale, Product product) {
         Optional<Product> productOptional = getProductById(product.getId());
 
@@ -68,6 +79,21 @@ public class BillList {
             if (result) amount -= s.getUnitPrice() * s.getQuantity();
             return result;
         });
+    }
+
+    public void removeOneSale(SaleEntry sale) {
+        Iterator<SaleEntry> it = sales.iterator();
+        while (it.hasNext()) {
+            SaleEntry s = it.next();
+            if (s.getId().equals(sale.getId())) {
+                if (s.getQuantity() > 0) {
+                    s.sale().subtract();
+                    amount -= s.getUnitPrice();
+                }
+                if (s.getQuantity() == 0) it.remove();
+                break;
+            }
+        }
     }
 
     public Optional<Product> getProductById(String productId) {

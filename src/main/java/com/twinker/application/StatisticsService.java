@@ -9,6 +9,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StatisticsService {
     private final ClientRepository clientRepository;
@@ -109,7 +110,14 @@ public class StatisticsService {
             }
         }
 
-        return topProducts;
+        return topProducts.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a, b) -> a, // no hay claves duplicadas, pero Java lo exige
+                        LinkedHashMap::new
+                ));
     }
 
     public Map<String, Double> getMonthlyTopClients() {

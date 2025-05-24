@@ -6,11 +6,14 @@ import com.twinker.application.InventoryService;
 import com.twinker.domain.collection.InventoryEntry;
 import com.twinker.domain.collection.SaleEntry;
 import com.twinker.domain.model.Client;
-import com.twinker.domain.model.Product;
+import com.twinker.domain.model.Inventory;
+import com.twinker.presentation.component.SalesProductCard;
 import com.twinker.presentation.view.SalesView;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SalesController {
     private final SalesView view;
@@ -26,17 +29,16 @@ public class SalesController {
     }
 
     public void init() {
-        onLoadSales();
+        updateProducts();
     }
 
     public void onLoadSales() {
-        List<InventoryEntry> products = inventoryService.getAllItems();
-        view.showProducts(products);
+        init();
     }
 
     public void onSearchProducts(String query) {
         List<InventoryEntry> inventory = inventoryService.searchInventory(query);
-        view.showProducts(inventory);
+        view.showProductsCurrentStock(billingService.getCurrentProductInventory(inventory));
     }
 
     public void onClientSelected(JDialog modal, JList<Client> clientJList) {
@@ -65,19 +67,37 @@ public class SalesController {
         view.showConfirmForm(saleEntries, billingService.getAmount());
     }
 
-    public void onAddToCart(Product product) {
-        billingService.addProduct(product);
-        view.showCart(billingService.getSales());
+    public void onAddToCart(InventoryEntry inventoryEntry) {
+        int productQuantityStockInventory =
+                inventoryEntry.getStock() - billingService.getQuantityInBillByProduct(inventoryEntry.product());
+
+        if (productQuantityStockInventory <= 0) {
+            JOptionPane.showMessageDialog(
+                    view,
+                    "No hay suficiente stock",
+                    "No hay suficiente stock de este producto en el inventario",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        billingService.addProduct(inventoryEntry.product());
+        updateProducts();
     }
 
     public void onRemoveFromCart(SaleEntry sale) {
         billingService.removeSale(sale);
-        view.showCart(billingService.getSales());
+        updateProducts();
+    }
+
+    public void onRemoveOneFromCart(SaleEntry sale) {
+        billingService.removeOneSale(sale);
+        updateProducts();
     }
 
     public void onCancelSale() {
         billingService.removeAll();
-        view.showCart(billingService.getSales());
+        updateProducts();
     }
 
     public void onConfirmSale() {
@@ -92,6 +112,11 @@ public class SalesController {
         view.showCart(billingService.getSales());
         view.showProducts(products);
         modal.dispose();
+    }
+
+    private void updateProducts() {
+        view.showCart(billingService.getSales());
+        view.showProductsCurrentStock(billingService.getCurrentProductInventory(inventoryService.getAllItems()));
     }
 
 }

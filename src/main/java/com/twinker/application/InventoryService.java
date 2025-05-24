@@ -1,14 +1,13 @@
 package com.twinker.application;
 
+import com.twinker.domain.collection.BillList;
 import com.twinker.domain.collection.InventoryEntry;
 import com.twinker.domain.model.Inventory;
 import com.twinker.domain.model.Product;
 import com.twinker.persistence.repository.InventoryRepository;
 import com.twinker.persistence.repository.ProductRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class InventoryService {
     public final InventoryRepository inventoryRepository;
