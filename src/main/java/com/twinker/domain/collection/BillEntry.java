@@ -19,6 +19,10 @@ public record BillEntry(Bill bill, List<SaleEntry> saleEntries, Client client) {
         return client.getName();
     }
 
+    public double getAmount() {
+        return bill.getAmount();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

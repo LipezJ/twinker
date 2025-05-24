@@ -64,6 +64,7 @@ public class MainView extends JFrame {
                 case "Clientes" -> mainPanel.add(new ClientsView(), name);
                 case "Inventarios" -> mainPanel.add(new InventoryView(), name);
                 case "Contabilidad" -> mainPanel.add(new AccountingView(), name);
+                case "Estadísticas" -> mainPanel.add(new StatisticsView(), name);
                 default -> mainPanel.add(showPlaceholder(name), name);
             }
         }

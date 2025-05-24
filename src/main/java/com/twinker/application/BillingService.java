@@ -39,6 +39,10 @@ public class BillingService {
         return billList.getSales();
     }
 
+    public double getAmount() {
+        return billList.getAmount();
+    }
+
     public void removeAll() {
         Bill bill = new Bill();
         this.billList = new BillList(bill);
@@ -52,13 +56,14 @@ public class BillingService {
         Bill bill = this.billList.getBill();
         bill.setClientId(client != null ? client.getId() : null);
         bill.setDate(LocalDateTime.now().toString());
+        bill.setAmount(this.billList.getAmount());
         billRepository.insert(bill);
 
         List<SaleEntry> saleEntries = this.billList.getSales();
         saleRepository.registerSales(saleEntries);
 
         for (SaleEntry saleEntry : saleEntries) {
-            double quantity = saleEntry.getQuantity();
+            int quantity = saleEntry.getQuantity();
             Optional<Inventory> inventoryOptional = inventoryRepository.getByProductId(saleEntry.product().getId());
 
             if (inventoryOptional.isPresent()) {

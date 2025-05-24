@@ -40,7 +40,10 @@ public class ClientsView extends JPanel {
         clientsPanel = new JPanel();
         clientsPanel.setLayout(new BoxLayout(clientsPanel, BoxLayout.Y_AXIS));
         clientsPanel.setBackground(getBackground());
-        content.add(clientsPanel);
+        JScrollPane clientsScrollPanel = new JScrollPane(clientsPanel);
+        clientsScrollPanel.setBorder(null);
+        clientsScrollPanel.getVerticalScrollBar().setUnitIncrement(14);
+        content.add(clientsScrollPanel);
 
         JButton openFormButton = new JButton("Agregar Cliente");
         openFormButton.setPreferredSize(new Dimension(180, 30));
@@ -50,7 +53,7 @@ public class ClientsView extends JPanel {
         clientsController.initClients();
     }
 
-    public void showInventory(List<Client> clients) {
+    public void showClients(List<Client> clients) {
         if (clientsPanel == null) {
             clientsPanel = new JPanel();
             clientsPanel.setLayout(new BoxLayout(clientsPanel, BoxLayout.Y_AXIS));

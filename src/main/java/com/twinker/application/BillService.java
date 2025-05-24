@@ -11,6 +11,7 @@ import com.twinker.persistence.repository.ClientRepository;
 import com.twinker.persistence.repository.ProductRepository;
 import com.twinker.persistence.repository.SaleRepository;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class BillService {
@@ -26,7 +27,7 @@ public class BillService {
          saleRepository = new SaleRepository();
      }
 
-     public List<BillEntry> getAllBills() {
+     public List<BillEntry> getAllBillsSorted() {
          List<Bill> bills = billRepository.getAll();
          List<BillEntry> billEntryList = new ArrayList<>();
          Client nullClient = new Client();
@@ -39,8 +40,6 @@ public class BillService {
              for (Sale sale : sales) {
                  Optional<Product> product = productRepository.getById(sale.getProductId());
 
-                 System.out.println(sale.getProductId() + " - " + product.isPresent());
-
                  SaleEntry saleEntry = product.map(value -> new SaleEntry(sale, value))
                          .orElseGet(() -> new SaleEntry(sale, nullProduct));
 
@@ -48,7 +47,6 @@ public class BillService {
              }
 
              Optional<Client> client = clientRepository.getById(bill.getClientId());
-             System.out.println(bill.getClientId() + " - " + client.isPresent());
 
              BillEntry billEntry = client.map(value -> new BillEntry(bill, saleEntries, value))
                     .orElseGet(() -> new BillEntry(bill, saleEntries, nullClient));
@@ -56,11 +54,15 @@ public class BillService {
              billEntryList.add(billEntry);
          }
 
-         return billEntryList;
+         return billEntryList.stream().sorted((b1, b2) -> {
+             LocalDateTime d1 = LocalDateTime.parse(b1.getDate());
+             LocalDateTime d2 = LocalDateTime.parse(b2.getDate());
+             return d2.compareTo(d1);
+         }).toList();
      }
 
     public List<BillEntry> filterBills(String clientName, String productName) {
-        return getAllBills().stream()
+        return getAllBillsSorted().stream()
                 .filter(billEntry -> clientName == null
                         || clientName.equals(billEntry.getClientName()))
                 .filter(billEntry -> productName == null

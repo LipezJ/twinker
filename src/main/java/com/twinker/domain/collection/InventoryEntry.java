@@ -13,7 +13,7 @@ public record InventoryEntry(Product product, Inventory inventory) {
         return product.getId();
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return inventory.getQuantity();
     }
 

@@ -9,14 +9,14 @@ import java.awt.*;
 import java.util.List;
 
 public class SalesConfirmFormDialog extends FormDialog {
-    public SalesConfirmFormDialog(JFrame parent, SalesController controller, List<SaleEntry> saleEntries) {
-        super(parent, "Confirmar venta", new Dimension(300, 500));
+    public SalesConfirmFormDialog(JFrame parent, SalesController controller, List<SaleEntry> saleEntries, double amount) {
+        super(parent, "Confirmar venta", new Dimension(400, 500));
 
         addLabel("Factura:");
-        JPanel listPanel = new BillSummarize(saleEntries);
-        JScrollPane scroll = new JScrollPane(listPanel);
-        scroll.setBorder(BorderFactory.createEmptyBorder());
-        add(scroll, gbc);
+        JPanel listPanel = new BillSummarize(saleEntries, amount);
+        listPanel.setBorder(BorderFactory.createEmptyBorder());
+        listPanel.setMinimumSize(new Dimension(300, 400));
+        add(listPanel, gbc);
         gbc.gridy++;
 
         JButton confirmBtn = addButton("Confirmar");

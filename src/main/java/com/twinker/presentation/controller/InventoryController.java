@@ -32,10 +32,10 @@ public class InventoryController extends ProtectedController {
 
     public void onAddEntry(JDialog modal, String name, String price, String description, String quantity) {
         double parsedPrice;
-        double parsedQuantity;
+        int parsedQuantity;
         try {
             parsedPrice = Double.parseDouble(price);
-            parsedQuantity = Double.parseDouble(quantity);
+            parsedQuantity = Integer.parseInt(quantity);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(modal, "Error al agregar el producto. Verifica los datos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -55,10 +55,10 @@ public class InventoryController extends ProtectedController {
 
     public void onEditEntry(JDialog modal, String inventoryId, String name, String price, String description, String quantity) {
         double parsedPrice;
-        double parsedQuantity;
+        int parsedQuantity;
         try {
             parsedPrice = Double.parseDouble(price);
-            parsedQuantity = Double.parseDouble(quantity);
+            parsedQuantity = Integer.parseInt(quantity);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(modal, "Error al actualizar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
             return;

@@ -22,12 +22,12 @@ public class ClientsController extends ProtectedController {
 
     public void onLoadClients() {
         List<Client> inventory = clientService.getAllClients();
-        view.showInventory(inventory);
+        view.showClients(inventory);
     }
 
     public void onSearchClients(String query) {
         List<Client> clients = clientService.searchClient(query);
-        view.showInventory(clients);
+        view.showClients(clients);
     }
 
     public void onAddClient(JDialog modal, String name, String phone, String email) {

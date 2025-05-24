@@ -23,6 +23,7 @@ public class SalesCartPanel extends JPanel {
         itemsContainer.setBackground(getBackground());
         itemsContainer.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         JScrollPane scroll = new JScrollPane(itemsContainer);
+        scroll.getVerticalScrollBar().setUnitIncrement(14);
         add(scroll, BorderLayout.CENTER);
 
         showCartItems(new ArrayList<>());
@@ -48,7 +49,7 @@ public class SalesCartPanel extends JPanel {
     public void showCartItems(List<SaleEntry> items) {
         itemsContainer.removeAll();
         if (items.isEmpty()) {
-            itemsContainer.add(new JLabel("El carrito está vacío"));
+            itemsContainer.add(new JLabel("Agregue un producto"));
         } else {
             for (SaleEntry item : items) {
                 itemsContainer.add(new SalesCartItem(item, controller));

@@ -13,7 +13,7 @@ public record SaleEntry(Sale sale, Product product) {
         return product.getId();
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return sale.getQuantity();
     }
 

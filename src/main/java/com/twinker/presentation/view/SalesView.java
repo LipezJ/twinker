@@ -45,11 +45,12 @@ public class SalesView extends JPanel {
         JPanel center = new JPanel(new BorderLayout(10,10));
         center.setBackground(getBackground());
 
-        productsPanel = new JPanel(new GridLayout(0, 2, 10, 10));
+        productsPanel = new JPanel(new GridLayout(10, 2, 10, 10));
         productsPanel.setBackground(getBackground());
         JScrollPane scroll = new JScrollPane(productsPanel);
         scroll.setBorder(null);
-        center.add(scroll, BorderLayout.CENTER);
+        scroll.getVerticalScrollBar().setUnitIncrement(14);
+        center.add(scroll);
 
         cartPanel = new SalesCartPanel(controller);
         center.add(cartPanel, BorderLayout.EAST);
@@ -70,17 +71,19 @@ public class SalesView extends JPanel {
         dialog.setVisible(true);
     }
 
-    public void showConfirmForm(List<SaleEntry> salesEntries) {
+    public void showConfirmForm(List<SaleEntry> salesEntries, double amount) {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-        SalesConfirmFormDialog dialog = new SalesConfirmFormDialog(frame, controller, salesEntries);
+        SalesConfirmFormDialog dialog = new SalesConfirmFormDialog(frame, controller, salesEntries, amount);
         dialog.setVisible(true);
     }
 
     public void showProducts(List<InventoryEntry> inventory) {
         productsPanel.removeAll();
         for (InventoryEntry entry : inventory) {
-            productsPanel.add(new SalesProductCard(entry, controller));
+            SalesProductCard productCard = new SalesProductCard(entry, controller);
+            productCard.setMaximumSize(new Dimension(0, 200));
+            productsPanel.add(productCard);
         }
         productsPanel.revalidate();
         productsPanel.repaint();

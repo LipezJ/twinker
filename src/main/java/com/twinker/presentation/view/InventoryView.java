@@ -42,7 +42,10 @@ public class InventoryView extends JPanel {
         itemsPanel = new JPanel();
         itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
         itemsPanel.setBackground(getBackground());
-        content.add(itemsPanel);
+        JScrollPane productsPanel = new JScrollPane(itemsPanel);
+        productsPanel.setBorder(null);
+        productsPanel.getVerticalScrollBar().setUnitIncrement(14);
+        content.add(productsPanel);
 
         JButton openFormButton = new JButton("Agregar Producto");
         openFormButton.setPreferredSize(new Dimension(180, 30));

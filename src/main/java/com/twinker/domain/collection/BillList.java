@@ -11,8 +11,10 @@ import java.util.Optional;
 public class BillList {
     private final Bill bill;
     private final List<SaleEntry> sales;
+    private double amount;
 
     public BillList(Bill bill) {
+        this.amount = 0;
         this.bill = bill;
         this.sales = new ArrayList<>();
     }
@@ -36,6 +38,10 @@ public class BillList {
         return products;
     }
 
+    public double getAmount() {
+        return amount;
+    }
+
     public void addSale(Sale sale, Product product) {
         Optional<Product> productOptional = getProductById(product.getId());
 
@@ -48,6 +54,8 @@ public class BillList {
                 saleRef.aggregate();
             }
         }
+
+        amount += product.getPrice();
     }
 
     public Optional<SaleEntry> getSaleByProductId(String productId) {
@@ -55,7 +63,11 @@ public class BillList {
     }
 
     public void removeSale(SaleEntry sale) {
-        sales.removeIf(s -> s.getId().equals(sale.getId()));
+        sales.removeIf(s -> {
+            boolean result = s.getId().equals(sale.getId());
+            if (result) amount -= s.getUnitPrice() * s.getQuantity();
+            return result;
+        });
     }
 
     public Optional<Product> getProductById(String productId) {

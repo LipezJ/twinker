@@ -48,7 +48,7 @@ public class InventoryService {
         return result;
     }
 
-    public void addEntry(String name, double price, String description, double quantity) {
+    public void addEntry(String name, double price, String description, int quantity) {
         Product product = new Product(name, price, description);
         productRepository.insert(product);
 
@@ -56,7 +56,7 @@ public class InventoryService {
         inventoryRepository.insert(inventory);
     }
 
-    public void editEntry(String inventoryId, String name, double price, String description, double quantity) {
+    public void editEntry(String inventoryId, String name, double price, String description, int quantity) {
         Optional<Inventory> inventoryOptional = inventoryRepository.searchById(inventoryId);
         if (inventoryOptional.isEmpty()) return;
 

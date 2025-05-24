@@ -6,12 +6,12 @@ public class Sale extends Entity {
     private String id;
     private String billId;
     private String productId;
-    private double quantity;
+    private int quantity;
     private double unitPrice;
 
     public Sale() { }
 
-    public Sale(String productId, String billId, double quantity, double unitPrice) {
+    public Sale(String productId, String billId, int quantity, double unitPrice) {
         this.id = UUID.randomUUID().toString();
         this.productId = productId;
         this.billId = billId;
@@ -32,7 +32,7 @@ public class Sale extends Entity {
         return billId;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 

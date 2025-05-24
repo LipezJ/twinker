@@ -9,6 +9,7 @@ import com.twinker.domain.entity.Product;
 import com.twinker.presentation.view.AccountingView;
 
 import javax.swing.*;
+import java.util.Collection;
 import java.util.List;
 
 public class AccountingController {
@@ -30,7 +31,7 @@ public class AccountingController {
     }
 
     public void loadAccounting() {
-        List<BillEntry> billEntries = billService.getAllBills();
+        List<BillEntry> billEntries = billService.getAllBillsSorted();
         view.showSales(billEntries);
     }
 
@@ -43,6 +44,7 @@ public class AccountingController {
 
     public void onLoadAccounting() {
         loadAccounting();
+        loadFilters();
     }
 
     public String VOID_FILTER = "-";

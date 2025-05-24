@@ -38,7 +38,10 @@ public class AccountingView extends JPanel {
         salesPanel = new JPanel();
         salesPanel.setLayout(new BoxLayout(salesPanel, BoxLayout.Y_AXIS));
         salesPanel.setBackground(getBackground());
-        content.add(salesPanel);
+        JScrollPane salesScrollPanel = new JScrollPane(salesPanel);
+        salesScrollPanel.setBorder(null);
+        salesScrollPanel.getVerticalScrollBar().setUnitIncrement(14);
+        content.add(salesScrollPanel);
 
         accountingController.initAccounting();
         addComponentListener(new ComponentAdapter() {
@@ -91,6 +94,8 @@ public class AccountingView extends JPanel {
     }
 
     public void showFilters(List<Client> clients, List<Product> products) {
+        filtersPanel.removeAll();
+
         JComboBox<String> clientFilter = new JComboBox<>();
         clientFilter.addItem(accountingController.VOID_FILTER);
         for (Client client : clients) {
@@ -111,6 +116,9 @@ public class AccountingView extends JPanel {
         filtersPanel.add(clientFilter);
         filtersPanel.add(productFilter);
         filtersPanel.add(searchButton);
+
+        filtersPanel.revalidate();
+        filtersPanel.repaint();
     }
 
     public void showDetailForm(BillEntry billEntry) {

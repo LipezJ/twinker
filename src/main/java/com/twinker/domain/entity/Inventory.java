@@ -5,11 +5,11 @@ import java.util.UUID;
 public class Inventory extends Entity {
     private String id;
     private String productId;
-    private double quantity;
+    private int quantity;
 
     public Inventory() { }
 
-    public Inventory(String productId, double quantity) {
+    public Inventory(String productId, int quantity) {
         this.id = UUID.randomUUID().toString();
         this.productId = productId;
         this.quantity = quantity;
@@ -19,11 +19,11 @@ public class Inventory extends Entity {
         return productId;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

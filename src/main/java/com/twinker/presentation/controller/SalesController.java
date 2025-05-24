@@ -46,7 +46,7 @@ public class SalesController {
             List<SaleEntry> saleEntries = billingService.getSales();
 
             modal.dispose();
-            view.showConfirmForm(saleEntries);
+            view.showConfirmForm(saleEntries, billingService.getAmount());
         } else {
             JOptionPane.showMessageDialog(
                     modal,
@@ -62,7 +62,7 @@ public class SalesController {
         List<SaleEntry> saleEntries = billingService.getSales();
 
         modal.dispose();
-        view.showConfirmForm(saleEntries);
+        view.showConfirmForm(saleEntries, billingService.getAmount());
     }
 
     public void onAddToCart(Product product) {
