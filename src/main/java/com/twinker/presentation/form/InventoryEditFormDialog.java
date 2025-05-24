@@ -18,7 +18,7 @@ public class InventoryEditFormDialog extends FormDialog {
         JTextField descriptionField = addTextField(entry.getDescription());
 
         addLabel("Cantidad en stock:");
-        JTextField quantityField = addTextField(String.valueOf(entry.getQuantity()));
+        JTextField quantityField = addTextField(String.valueOf(entry.getStock()));
 
         addLabel("Precio unitario:");
         JTextField priceField = addTextField(String.valueOf(entry.getPrice()));

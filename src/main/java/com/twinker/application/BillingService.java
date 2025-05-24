@@ -2,7 +2,7 @@ package com.twinker.application;
 
 import com.twinker.domain.collection.BillList;
 import com.twinker.domain.collection.SaleEntry;
-import com.twinker.domain.entity.*;
+import com.twinker.domain.model.*;
 import com.twinker.persistence.repository.BillRepository;
 import com.twinker.persistence.repository.InventoryRepository;
 import com.twinker.persistence.repository.SaleRepository;
@@ -69,7 +69,7 @@ public class BillingService {
             if (inventoryOptional.isPresent()) {
                 Inventory inventory = inventoryOptional.get();
 
-                inventory.setQuantity(inventory.getQuantity() - quantity);
+                inventory.setStock(inventory.getStock() - quantity);
                 inventoryRepository.update(inventory);
             }
         }

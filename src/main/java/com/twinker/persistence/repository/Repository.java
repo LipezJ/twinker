@@ -1,6 +1,6 @@
 package com.twinker.persistence.repository;
 
-import com.twinker.domain.entity.Entity;
+import com.twinker.domain.Entity;
 import com.twinker.persistence.utils.CsvHandler;
 import com.twinker.persistence.utils.EntityMapper;
 

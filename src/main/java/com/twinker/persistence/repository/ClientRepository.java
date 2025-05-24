@@ -1,7 +1,7 @@
 package com.twinker.persistence.repository;
 
 import com.twinker.data.config.DataConfig;
-import com.twinker.domain.entity.Client;
+import com.twinker.domain.model.Client;
 
 public class ClientRepository extends Repository<Client> {
     public ClientRepository() {

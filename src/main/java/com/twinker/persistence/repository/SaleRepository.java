@@ -2,9 +2,8 @@ package com.twinker.persistence.repository;
 
 import com.twinker.data.config.DataConfig;
 import com.twinker.domain.collection.SaleEntry;
-import com.twinker.domain.entity.Sale;
+import com.twinker.domain.model.Sale;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

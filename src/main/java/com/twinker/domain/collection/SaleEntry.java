@@ -1,7 +1,7 @@
 package com.twinker.domain.collection;
 
-import com.twinker.domain.entity.Product;
-import com.twinker.domain.entity.Sale;
+import com.twinker.domain.model.Product;
+import com.twinker.domain.model.Sale;
 
 public record SaleEntry(Sale sale, Product product) {
 
@@ -22,6 +22,6 @@ public record SaleEntry(Sale sale, Product product) {
     }
 
     public double getUnitPrice() {
-        return product.getPrice();
+        return sale.getUnitPrice();
     }
 }

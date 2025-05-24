@@ -1,7 +1,7 @@
 package com.twinker.domain.collection;
 
-import com.twinker.domain.entity.Bill;
-import com.twinker.domain.entity.Client;
+import com.twinker.domain.model.Bill;
+import com.twinker.domain.model.Client;
 
 import java.util.List;
 import java.util.Objects;

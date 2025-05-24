@@ -2,7 +2,7 @@ package com.twinker.presentation.view;
 
 import com.twinker.domain.collection.InventoryEntry;
 import com.twinker.domain.collection.SaleEntry;
-import com.twinker.domain.entity.Client;
+import com.twinker.domain.model.Client;
 import com.twinker.presentation.component.SalesCartPanel;
 import com.twinker.presentation.component.SalesProductCard;
 import com.twinker.presentation.controller.SalesController;

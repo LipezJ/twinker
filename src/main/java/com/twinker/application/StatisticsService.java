@@ -1,7 +1,7 @@
 package com.twinker.application;
 
-import com.twinker.domain.entity.Bill;
-import com.twinker.domain.entity.Sale;
+import com.twinker.domain.model.Bill;
+import com.twinker.domain.model.Sale;
 import com.twinker.persistence.repository.*;
 
 import java.time.*;

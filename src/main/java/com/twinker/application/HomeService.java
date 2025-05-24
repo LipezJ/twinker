@@ -1,14 +1,12 @@
 package com.twinker.application;
 
-import com.twinker.domain.entity.Inventory;
-import com.twinker.domain.entity.Product;
+import com.twinker.domain.model.Inventory;
 import com.twinker.persistence.repository.InventoryRepository;
 import com.twinker.persistence.repository.ProductRepository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class HomeService {
     private final int OUT_OF_STOCK_MARGIN = 5;
@@ -26,9 +24,9 @@ public class HomeService {
         Map<String, Integer> products = new HashMap<>();
 
         for (Inventory inventory : inventoryList) {
-            if (inventory.getQuantity() <= OUT_OF_STOCK_MARGIN) {
+            if (inventory.getStock() <= OUT_OF_STOCK_MARGIN) {
                 productRepository.getById(inventory.getProductId())
-                        .ifPresent(product -> products.put(product.getName(), inventory.getQuantity()));
+                        .ifPresent(product -> products.put(product.getName(), inventory.getStock()));
             }
         }
 

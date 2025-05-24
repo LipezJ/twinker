@@ -1,7 +1,7 @@
 package com.twinker.domain.collection;
 
-import com.twinker.domain.entity.Inventory;
-import com.twinker.domain.entity.Product;
+import com.twinker.domain.model.Inventory;
+import com.twinker.domain.model.Product;
 
 public record InventoryEntry(Product product, Inventory inventory) {
 
@@ -13,8 +13,8 @@ public record InventoryEntry(Product product, Inventory inventory) {
         return product.getId();
     }
 
-    public int getQuantity() {
-        return inventory.getQuantity();
+    public int getStock() {
+        return inventory.getStock();
     }
 
     public String getName() {

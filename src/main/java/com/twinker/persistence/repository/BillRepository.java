@@ -1,7 +1,7 @@
 package com.twinker.persistence.repository;
 
 import com.twinker.data.config.DataConfig;
-import com.twinker.domain.entity.Bill;
+import com.twinker.domain.model.Bill;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

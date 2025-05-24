@@ -83,7 +83,7 @@ public class InventoryView extends JPanel {
             JPanel info = new JPanel(new GridLayout(3, 1, 5, 5));
             info.setBackground(getBackground());
             info.add(new JLabel(item.getName()));
-            info.add(new JLabel("Stock: " + item.getQuantity()));
+            info.add(new JLabel("Stock: " + item.getStock()));
             info.add(new JLabel("Precio: $" + item.getPrice()));
             card.add(info, BorderLayout.CENTER);
 

@@ -1,7 +1,7 @@
 package com.twinker.persistence.repository;
 
 import com.twinker.data.config.DataConfig;
-import com.twinker.domain.entity.Inventory;
+import com.twinker.domain.model.Inventory;
 
 import java.util.Optional;
 

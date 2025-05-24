@@ -21,7 +21,7 @@ public class SalesProductCard extends JPanel {
         JPanel info = new JPanel(new GridLayout(3,1,5,5));
         info.setBackground(getBackground());
         info.add(new JLabel(entry.getName()));
-        info.add(new JLabel("Stock: " + entry.getQuantity()));
+        info.add(new JLabel("Stock: " + entry.getStock()));
         info.add(new JLabel("Precio: $" + entry.getPrice()));
         add(info, BorderLayout.CENTER);
 

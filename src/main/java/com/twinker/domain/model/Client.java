@@ -1,4 +1,6 @@
-package com.twinker.domain.entity;
+package com.twinker.domain.model;
+
+import com.twinker.domain.Entity;
 
 import java.util.UUID;
 

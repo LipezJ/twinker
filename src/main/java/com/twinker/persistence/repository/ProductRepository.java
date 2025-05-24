@@ -1,7 +1,7 @@
 package com.twinker.persistence.repository;
 
 import com.twinker.data.config.DataConfig;
-import com.twinker.domain.entity.Product;
+import com.twinker.domain.model.Product;
 
 public class ProductRepository extends Repository<Product> {
     public ProductRepository() {
