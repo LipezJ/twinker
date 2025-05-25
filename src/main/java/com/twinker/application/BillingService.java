@@ -34,8 +34,7 @@ public class BillingService {
     }
 
     public void addProduct(Product product) {
-        Sale sale = new Sale(product.getId(), billList.getId(), 1, product.getPrice());
-        billList.addSale(sale, product);
+        billList.addSale(product);
     }
 
     public List<SaleEntry> getSales() {
@@ -88,23 +87,26 @@ public class BillingService {
         removeAll();
     }
 
-    public Map<InventoryEntry, Integer> getCurrentProductInventory(List<InventoryEntry> inventory) {
+    public Map<InventoryEntry, Integer> updateCurrentProductInventory(List<InventoryEntry> inventory) {
         Map<InventoryEntry, Integer> currentInventory = new LinkedHashMap<>();
 
-        inventory.forEach(i -> {
-            int quantityInBill = billList.getQuantityInBillByProduct(i.product());
-            int currentStock = i.getStock() - quantityInBill;
 
-            if (currentStock >= 0) {
-                if (currentStock == 0) {
-                    billList.getSaleByProductId(i.getProductId())
-                            .ifPresent(s -> billList.removeSale(s));
-                }
-                currentInventory.put(i, currentStock);
-            } else {
+        inventory.forEach(i -> {
+            if (i.getStock() == 0) {
                 billList.getSaleByProductId(i.getProductId())
-                        .ifPresent(s -> s.sale().setQuantity(quantityInBill - currentStock));
-                currentInventory.put(i, quantityInBill - currentStock);
+                        .ifPresent(s -> billList.removeSale(s));
+                currentInventory.put(i, 0);
+            } else {
+                int quantityInBill = billList.getQuantityInBillByProduct(i.product());
+                int currentStock = i.getStock() - quantityInBill;
+
+                if (currentStock >= 0) {
+                    currentInventory.put(i, currentStock);
+                } else {
+                    billList.getSaleByProductId(i.getProductId())
+                            .ifPresent(s -> s.sale().setQuantity(quantityInBill + currentStock));
+                    currentInventory.put(i, quantityInBill + currentStock);
+                }
             }
         });
 

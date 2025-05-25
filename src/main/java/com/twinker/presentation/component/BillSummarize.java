@@ -48,7 +48,7 @@ public class BillSummarize extends JPanel {
         add(scroll);
         add(Box.createVerticalStrut(10));
 
-        JLabel totalLabel = new JLabel("Total: $" + fmt.format(amount));
+        JLabel totalLabel = new JLabel("Total: " + fmt.format(amount));
         totalLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(totalLabel);
     }

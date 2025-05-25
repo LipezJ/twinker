@@ -8,7 +8,7 @@ import java.awt.*;
 public class ClientFormDialog extends FormDialog {
 
     public ClientFormDialog(JFrame parent, ClientsController controller) {
-        super(parent, "Agregar al Inventario", new Dimension(300, 350));
+        super(parent, "Agregar cliente", new Dimension(300, 350));
 
         addLabel("Nombre del cliente:");
         JTextField nameField = addTextField("");

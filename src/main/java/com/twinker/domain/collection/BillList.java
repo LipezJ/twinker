@@ -53,10 +53,11 @@ public class BillList {
         return 0;
     }
 
-    public void addSale(Sale sale, Product product) {
+    public void addSale(Product product) {
         Optional<Product> productOptional = getProductById(product.getId());
 
         if (productOptional.isEmpty()) {
+            Sale sale = new Sale(product.getId(), bill.getId(), 1, product.getPrice());
             sales.add(new SaleEntry(sale, product));
         } else {
             Optional<SaleEntry> saleEntry = getSaleByProductId(product.getId());
@@ -66,7 +67,7 @@ public class BillList {
             }
         }
 
-        amount += sale.getUnitPrice();
+        amount += product.getPrice();
     }
 
     public Optional<SaleEntry> getSaleByProductId(String productId) {

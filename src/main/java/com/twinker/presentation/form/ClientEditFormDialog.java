@@ -9,7 +9,7 @@ import java.awt.*;
 public class ClientEditFormDialog extends FormDialog {
 
     public ClientEditFormDialog(JFrame parent, ClientsController controller, Client client) {
-        super(parent, "Editar producto", new Dimension(300, 350));
+        super(parent, "Editar cliente", new Dimension(300, 350));
 
         addLabel("Nombre del cliente:");
         JTextField nameField = addTextField(client.getName());

@@ -3,7 +3,6 @@ package com.twinker.presentation.controller;
 import com.twinker.application.StatisticsService;
 import com.twinker.presentation.view.StatisticsView;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class StatisticsController {
@@ -26,7 +25,7 @@ public class StatisticsController {
     }
 
     public void onSelectChart(int optionSelected) {
-        Map<String, Double> data = new HashMap<>();
+        Map<String, Double> data;
 
         switch (optionSelected) {
             case 1 -> data = statisticsService.getMonthlySales();

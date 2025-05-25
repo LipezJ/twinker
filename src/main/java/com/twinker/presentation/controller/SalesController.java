@@ -34,7 +34,7 @@ public class SalesController {
 
     public void onSearchProducts(String query) {
         List<InventoryEntry> inventory = inventoryService.searchInventory(query);
-        view.showProductsCurrentStock(billingService.getCurrentProductInventory(inventory));
+        view.showProductsCurrentStock(billingService.updateCurrentProductInventory(inventory));
     }
 
     public void onClientSelected(JDialog modal, JList<Client> clientJList) {
@@ -111,8 +111,8 @@ public class SalesController {
     }
 
     private void updateProducts() {
+        view.showProductsCurrentStock(billingService.updateCurrentProductInventory(inventoryService.getAllItems()));
         view.showCart(billingService.getSales());
-        view.showProductsCurrentStock(billingService.getCurrentProductInventory(inventoryService.getAllItems()));
     }
 
 }
