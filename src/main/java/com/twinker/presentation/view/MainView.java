@@ -9,6 +9,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Logger;
 
+/**
+ * The main window of the Twinker application.
+ * This class represents the primary container that holds all the different
+ * views
+ * of the application in a card layout, with a sidebar navigation menu.
+ *
+ * <p>
+ * The window uses a dark theme provided by FlatLaf and includes:
+ * <ul>
+ * <li>A sidebar with circular navigation buttons</li>
+ * <li>A main content area that switches between different views</li>
+ * <li>Support for Home, Sales, Clients, Inventory, Statistics, and Accounting
+ * views</li>
+ * </ul>
+ * </p>
+ *
+ * @author Twinker Development Team
+ * @see com.twinker.presentation.controller.MainController
+ * @see com.formdev.flatlaf.FlatDarkLaf
+ */
 public class MainView extends JFrame {
     private static final Logger logger = Logger.getLogger(MainView.class.getName());
 
@@ -17,6 +37,10 @@ public class MainView extends JFrame {
 
     private final MainController mainController;
 
+    /**
+     * Constructs a new MainView window.
+     * Initializes the UI components and the main controller.
+     */
     public MainView() {
         super("Twinker");
         mainController = new MainController(this);
@@ -25,6 +49,11 @@ public class MainView extends JFrame {
         mainController.init();
     }
 
+    /**
+     * Initializes the user interface components.
+     * Sets up the look and feel, creates the sidebar navigation,
+     * and initializes all view panels in the card layout.
+     */
     private void initUI() {
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -60,7 +89,7 @@ public class MainView extends JFrame {
             btn.setToolTipText(name);
             btn.setForeground(Color.WHITE);
             btn.setFont(btn.getFont().deriveFont(Font.BOLD, 18f));
-            btn.addActionListener(_ -> showCard(name));
+            btn.addActionListener(e -> showCard(name));
             sidebar.add(btn);
             sidebar.add(Box.createVerticalStrut(12));
             group.add(btn);
@@ -85,10 +114,21 @@ public class MainView extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Shows the specified card in the main panel.
+     *
+     * @param name the name of the card to show
+     */
     private void showCard(String name) {
         cardLayout.show(mainPanel, name);
     }
 
+    /**
+     * Creates a placeholder panel with centered text.
+     *
+     * @param text the text to display in the placeholder
+     * @return a JPanel containing the centered text
+     */
     private JPanel showPlaceholder(String text) {
         JPanel p = new JPanel(new BorderLayout());
         p.setBackground(UIManager.getColor("Panel.background"));
@@ -99,6 +139,10 @@ public class MainView extends JFrame {
         return p;
     }
 
+    /**
+     * Displays the setup form dialog.
+     * This method creates and shows a modal dialog for initial application setup.
+     */
     public void showSetUpForm() {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 

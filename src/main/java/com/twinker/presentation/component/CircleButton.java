@@ -5,10 +5,33 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * A custom circular toggle button component for the Twinker application.
+ * This class extends JToggleButton to create a circular button with
+ * smooth edges and dynamic color states.
+ *
+ * <p>
+ * The button features:
+ * <ul>
+ * <li>Circular shape with antialiasing</li>
+ * <li>Dynamic color states for different interactions</li>
+ * <li>Centered text display</li>
+ * <li>Custom hit detection for circular shape</li>
+ * </ul>
+ * </p>
+ *
+ * @author Twinker Development Team
+ */
 public class CircleButton extends JToggleButton {
     private final int diameter;
     private Shape shape;
 
+    /**
+     * Constructs a new CircleButton with the specified diameter.
+     * Initializes the button with a circular shape and default styling.
+     *
+     * @param diameter the diameter of the circular button in pixels
+     */
     public CircleButton(int diameter) {
         this.diameter = diameter;
         Dimension size = new Dimension(diameter, diameter);
@@ -22,6 +45,13 @@ public class CircleButton extends JToggleButton {
         setOpaque(false);
     }
 
+    /**
+     * Custom paint implementation for the circular button.
+     * Handles the button's appearance including background color
+     * based on state and centered text rendering.
+     *
+     * @param g the Graphics context to paint with
+     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -55,6 +85,15 @@ public class CircleButton extends JToggleButton {
         g2.dispose();
     }
 
+    /**
+     * Custom hit detection for the circular shape.
+     * Ensures that mouse events are only triggered within
+     * the circular boundary of the button.
+     *
+     * @param x the x coordinate of the point to test
+     * @param y the y coordinate of the point to test
+     * @return true if the point is within the circular boundary
+     */
     @Override
     public boolean contains(int x, int y) {
         if (shape == null

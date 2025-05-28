@@ -8,9 +8,34 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Map;
 
+/**
+ * The home view of the Twinker application.
+ * This class represents the welcome screen that users see when they first open
+ * the application.
+ * It displays a welcome message and shows alerts for products that are running
+ * low on stock.
+ *
+ * <p>
+ * The view consists of:
+ * <ul>
+ * <li>A welcome title</li>
+ * <li>A main content area</li>
+ * <li>An alerts panel in the bottom-right corner showing low stock
+ * warnings</li>
+ * </ul>
+ * </p>
+ *
+ * @author Twinker Development Team
+ * @see com.twinker.presentation.controller.HomeController
+ */
 public class HomeView extends JPanel {
     private final JPanel alertsPanel;
 
+    /**
+     * Constructs a new HomeView.
+     * Initializes the UI components and sets up the home controller.
+     * The view will automatically update alerts when it becomes visible.
+     */
     public HomeView() {
         HomeController homeController = new HomeController(this);
 
@@ -49,6 +74,12 @@ public class HomeView extends JPanel {
         });
     }
 
+    /**
+     * Creates a wrapper panel for the alerts that positions them
+     * in the bottom-right corner of the screen.
+     *
+     * @return a JPanel containing the alerts panel
+     */
     private JPanel wrapAlertsPanel() {
         JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.setOpaque(false);
@@ -62,6 +93,12 @@ public class HomeView extends JPanel {
         return wrapper;
     }
 
+    /**
+     * Updates the alerts panel with current product stock information.
+     * Creates alert boxes for products that are running low on stock.
+     *
+     * @param productsOffStock a map of product names to their current stock levels
+     */
     public void showAlerts(Map<String, Integer> productsOffStock) {
         alertsPanel.removeAll();
 
@@ -79,6 +116,13 @@ public class HomeView extends JPanel {
         }
     }
 
+    /**
+     * Creates an individual alert panel for a product with low stock.
+     *
+     * @param productName the name of the product
+     * @param stock       the current stock level
+     * @return a JPanel containing the formatted alert
+     */
     private JPanel createAlertPanel(String productName, Integer stock) {
         JPanel alert = new JPanel();
         alert.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));

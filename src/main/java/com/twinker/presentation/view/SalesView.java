@@ -16,12 +16,36 @@ import java.awt.event.ComponentEvent;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The sales management view of the Twinker application.
+ * This class provides an interface for managing product sales, including
+ * product search, shopping cart management, and sale completion.
+ *
+ * <p>
+ * The view consists of:
+ * <ul>
+ * <li>A search bar for filtering products</li>
+ * <li>A grid of product cards showing available inventory</li>
+ * <li>A shopping cart panel showing selected items</li>
+ * </ul>
+ * </p>
+ *
+ * @author Twinker Development Team
+ * @see com.twinker.presentation.controller.SalesController
+ * @see com.twinker.presentation.component.SalesCartPanel
+ * @see com.twinker.presentation.component.SalesProductCard
+ */
 public class SalesView extends JPanel {
     private final JTextField searchField;
     private final JPanel productsPanel;
     private final SalesCartPanel cartPanel;
     private final SalesController controller;
 
+    /**
+     * Constructs a new SalesView.
+     * Initializes the UI components and sets up the sales controller.
+     * The view will automatically load sales data when it becomes visible.
+     */
     public SalesView() {
         this.controller = new SalesController(this);
         setLayout(new BorderLayout(10, 10));
@@ -65,6 +89,13 @@ public class SalesView extends JPanel {
         });
     }
 
+    /**
+     * Displays the client selection dialog.
+     * This dialog allows selecting an existing client or creating a new one for the
+     * sale.
+     *
+     * @param clients the list of existing clients to display
+     */
     public void showClientForm(List<Client> clients) {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
@@ -72,6 +103,14 @@ public class SalesView extends JPanel {
         dialog.setVisible(true);
     }
 
+    /**
+     * Displays the sale confirmation dialog.
+     * This dialog shows the final sale details and allows confirming the
+     * transaction.
+     *
+     * @param salesEntries the list of items in the sale
+     * @param amount       the total amount of the sale
+     */
     public void showConfirmForm(List<SaleEntry> salesEntries, double amount) {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
@@ -79,6 +118,11 @@ public class SalesView extends JPanel {
         dialog.setVisible(true);
     }
 
+    /**
+     * Updates the products grid with the current inventory.
+     *
+     * @param inventory the list of inventory entries to display
+     */
     public void showProducts(List<InventoryEntry> inventory) {
         productsPanel.removeAll();
         for (InventoryEntry entry : inventory) {
@@ -90,6 +134,13 @@ public class SalesView extends JPanel {
         productsPanel.repaint();
     }
 
+    /**
+     * Updates the products grid with current stock levels.
+     * This method is used when the inventory needs to show real-time stock levels.
+     *
+     * @param currentInventory a map of inventory entries to their current stock
+     *                         levels
+     */
     public void showProductsCurrentStock(Map<InventoryEntry, Integer> currentInventory) {
         productsPanel.removeAll();
         for (InventoryEntry entry : currentInventory.keySet()) {
@@ -101,6 +152,11 @@ public class SalesView extends JPanel {
         productsPanel.repaint();
     }
 
+    /**
+     * Updates the shopping cart panel with the current items.
+     *
+     * @param items the list of sale entries in the cart
+     */
     public void showCart(List<SaleEntry> items) {
         cartPanel.showCartItems(items);
     }

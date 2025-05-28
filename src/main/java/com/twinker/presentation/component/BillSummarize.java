@@ -7,7 +7,35 @@ import java.awt.*;
 import java.text.NumberFormat;
 import java.util.List;
 
+/**
+ * A custom panel component for displaying a summary of a bill or sale.
+ * This class creates a detailed view of all items in a sale, including
+ * quantities, unit prices, and total amounts.
+ *
+ * <p>
+ * The summary displays:
+ * <ul>
+ * <li>Scrollable list of sale items</li>
+ * <li>Product names and quantities</li>
+ * <li>Unit prices and line totals</li>
+ * <li>Overall bill total</li>
+ * <li>Formatted currency values</li>
+ * </ul>
+ * </p>
+ *
+ * @author Twinker Development Team
+ * @see com.twinker.domain.collection.SaleEntry
+ */
 public class BillSummarize extends JPanel {
+
+    /**
+     * Constructs a new BillSummarize panel.
+     * Creates a scrollable view of sale entries with price calculations
+     * and a total amount display.
+     *
+     * @param salesEntries the list of sale entries to display
+     * @param amount       the total amount of the bill
+     */
     public BillSummarize(List<SaleEntry> salesEntries, double amount) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

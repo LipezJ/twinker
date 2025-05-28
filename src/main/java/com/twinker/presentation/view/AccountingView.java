@@ -12,6 +12,24 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
 
+/**
+ * The accounting and billing view of the Twinker application.
+ * This class provides an interface for managing and viewing sales invoices,
+ * with filtering capabilities by client and product.
+ *
+ * <p>
+ * The view consists of:
+ * <ul>
+ * <li>A filters panel for searching bills by client and product</li>
+ * <li>A scrollable list of bill entries showing transaction details</li>
+ * <li>Controls for viewing detailed bill information</li>
+ * </ul>
+ * </p>
+ *
+ * @author Twinker Development Team
+ * @see com.twinker.presentation.controller.AccountingController
+ * @see com.twinker.domain.collection.BillEntry
+ */
 public class AccountingView extends JPanel {
     private final JPanel content;
     private JPanel salesPanel;
@@ -19,6 +37,11 @@ public class AccountingView extends JPanel {
 
     private final AccountingController accountingController;
 
+    /**
+     * Constructs a new AccountingView.
+     * Initializes the UI components and sets up the accounting controller.
+     * The view will automatically load accounting data when it becomes visible.
+     */
     public AccountingView() {
         accountingController = new AccountingController(this);
 
@@ -50,6 +73,13 @@ public class AccountingView extends JPanel {
         });
     }
 
+    /**
+     * Updates the sales panel with the current list of bill entries.
+     * Creates a card for each bill showing basic transaction information
+     * and provides access to detailed views.
+     *
+     * @param billEntries the list of bill entries to display
+     */
     public void showSales(List<BillEntry> billEntries) {
         if (salesPanel == null) {
             salesPanel = new JPanel();
@@ -82,7 +112,7 @@ public class AccountingView extends JPanel {
 
             JButton viewDetail = new JButton("🧾");
             viewDetail.setPreferredSize(new Dimension(40, 40));
-            viewDetail.addActionListener(_ -> accountingController.onOpenBillDialog(billEntry));
+            viewDetail.addActionListener(e -> accountingController.onOpenBillDialog(billEntry));
             card.add(viewDetail, BorderLayout.EAST);
 
             salesPanel.add(card);
@@ -93,6 +123,13 @@ public class AccountingView extends JPanel {
         salesPanel.repaint();
     }
 
+    /**
+     * Updates the filters panel with current clients and products.
+     * Sets up dropdown menus for filtering bills by client and product.
+     *
+     * @param clients  the list of clients to include in the filter
+     * @param products the list of products to include in the filter
+     */
     public void showFilters(List<Client> clients, List<Product> products) {
         filtersPanel.removeAll();
 
@@ -109,7 +146,7 @@ public class AccountingView extends JPanel {
         }
 
         JButton searchButton = new JButton("🔍");
-        searchButton.addActionListener(_ ->
+        searchButton.addActionListener(e ->
                 accountingController.onFilterBills(clientFilter, productFilter)
         );
 
@@ -121,6 +158,12 @@ public class AccountingView extends JPanel {
         filtersPanel.repaint();
     }
 
+    /**
+     * Displays the detailed bill information dialog.
+     * Opens a modal dialog showing complete information about a specific bill.
+     *
+     * @param billEntry the bill entry to show in detail
+     */
     public void showDetailForm(BillEntry billEntry) {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         AccountingBillFormDialog dialog = new AccountingBillFormDialog(frame, billEntry);

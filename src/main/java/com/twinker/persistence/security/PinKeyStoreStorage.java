@@ -11,6 +11,26 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.MessageDigest;
 
+/**
+ * Security class for managing administrator PIN storage in the Twinker
+ * application.
+ * Uses Java KeyStore (JCEKS) for secure credential storage and verification.
+ *
+ * <p>
+ * This class provides:
+ * <ul>
+ * <li>Secure PIN storage using KeyStore</li>
+ * <li>PIN verification with secure comparison</li>
+ * <li>PIN existence checking</li>
+ * <li>PIN removal capabilities</li>
+ * <li>File-based KeyStore persistence</li>
+ * </ul>
+ * </p>
+ *
+ * @author Twinker Development Team
+ * @see javax.crypto.SecretKey
+ * @see java.security.KeyStore
+ */
 public class PinKeyStoreStorage {
 
     private static final String KEYSTORE_TYPE = "JCEKS";
@@ -18,6 +38,13 @@ public class PinKeyStoreStorage {
     private static final String KEY_ALIAS = "pinEntry";
     private static final File KEYSTORE_FILE = new File(System.getProperty("user.home"), ".pinstore.jks");
 
+    /**
+     * Stores a PIN securely in the KeyStore.
+     * Creates a new KeyStore if none exists, or loads the existing one.
+     *
+     * @param pinPlain the PIN to store
+     * @throws Exception if there is an error storing the PIN
+     */
     public static void storePin(String pinPlain) throws Exception {
         KeyStore ks = KeyStore.getInstance(KEYSTORE_TYPE);
 
@@ -41,6 +68,14 @@ public class PinKeyStoreStorage {
         }
     }
 
+    /**
+     * Verifies a candidate PIN against the stored PIN.
+     * Uses secure comparison to prevent timing attacks.
+     *
+     * @param candidatePin the PIN to verify
+     * @return true if the PIN matches, false otherwise
+     * @throws Exception if there is an error during verification
+     */
     public static boolean verifyPin(String candidatePin) throws Exception {
         if (!KEYSTORE_FILE.exists()) {
             return false;
@@ -66,10 +101,21 @@ public class PinKeyStoreStorage {
         return MessageDigest.isEqual(storedBytes, candidateBytes);
     }
 
+    /**
+     * Checks if a PIN has been configured.
+     *
+     * @return true if a PIN exists in the KeyStore, false otherwise
+     */
     public static boolean existsPin() {
         return KEYSTORE_FILE.exists();
     }
 
+    /**
+     * Removes the stored PIN from the KeyStore.
+     * If no PIN exists, this method does nothing.
+     *
+     * @throws Exception if there is an error clearing the PIN
+     */
     public static void clearPin() throws Exception {
         if (!KEYSTORE_FILE.exists()) {
             return;
