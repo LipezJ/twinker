@@ -48,7 +48,8 @@ public class ClientFormDialog extends FormDialog {
         JButton createButton = addButton("Agregar Client");
         createButton.setBackground(new Color(46, 204, 113));
         createButton.setForeground(Color.WHITE);
-        createButton.addActionListener(e ->
+        createButton.addActionListener(
+                _ ->
                 controller.onAddClient(
                 this,
                         nameField.getText(),

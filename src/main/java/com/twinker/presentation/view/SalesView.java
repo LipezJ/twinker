@@ -58,7 +58,7 @@ public class SalesView extends JPanel {
 
         searchField = new JTextField();
         JButton searchButton = new JButton("🔍");
-        searchButton.addActionListener(e ->
+        searchButton.addActionListener(_ ->
                 controller.onSearchProducts(searchField.getText())
         );
         JPanel north = new JPanel(new BorderLayout(5,5));

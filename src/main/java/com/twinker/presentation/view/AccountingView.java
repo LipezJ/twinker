@@ -112,7 +112,7 @@ public class AccountingView extends JPanel {
 
             JButton viewDetail = new JButton("🧾");
             viewDetail.setPreferredSize(new Dimension(40, 40));
-            viewDetail.addActionListener(e -> accountingController.onOpenBillDialog(billEntry));
+            viewDetail.addActionListener(_ -> accountingController.onOpenBillDialog(billEntry));
             card.add(viewDetail, BorderLayout.EAST);
 
             salesPanel.add(card);
@@ -146,7 +146,7 @@ public class AccountingView extends JPanel {
         }
 
         JButton searchButton = new JButton("🔍");
-        searchButton.addActionListener(e ->
+        searchButton.addActionListener(_ ->
                 accountingController.onFilterBills(clientFilter, productFilter)
         );
 

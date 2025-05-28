@@ -1,7 +1,5 @@
 package com.twinker.persistence.security;
 
-import com.twinker.application.security.PinServiceException;
-
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.File;

@@ -57,7 +57,7 @@ public class InventoryEditFormDialog extends FormDialog {
         updateBtn.setBackground(new Color(52, 152, 219));
         updateBtn.setForeground(Color.WHITE);
 
-        updateBtn.addActionListener(e -> controller.onEditEntry(
+        updateBtn.addActionListener(_ -> controller.onEditEntry(
                 this, entry.getId(), nameField.getText(), priceField.getText(), descriptionField.getText(), quantityField.getText())
         );
 

@@ -51,12 +51,12 @@ public class SalesCartItem extends JPanel {
 
         JButton removeOne = new JButton("➖");
         removeOne.setPreferredSize(new Dimension(30,30));
-        removeOne.addActionListener(e -> controller.onRemoveOneFromCart(saleEntry));
+        removeOne.addActionListener(_ -> controller.onRemoveOneFromCart(saleEntry));
         actionPanel.add(removeOne);
 
         JButton remove = new JButton("❌");
         remove.setPreferredSize(new Dimension(30,30));
-        remove.addActionListener(e -> controller.onRemoveFromCart(saleEntry));
+        remove.addActionListener(_ -> controller.onRemoveFromCart(saleEntry));
         actionPanel.add(remove);
 
         add(actionPanel, BorderLayout.EAST);

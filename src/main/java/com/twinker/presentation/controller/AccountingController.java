@@ -87,7 +87,7 @@ public class AccountingController {
     }
 
     /** Constant representing no filter selection */
-    public String VOID_FILTER = "-";
+    public final String VOID_FILTER = "-";
 
     /**
      * Handles filtering bills based on selected client and product.

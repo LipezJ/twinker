@@ -53,7 +53,7 @@ public class InventoryView extends JPanel {
 
         JTextField searchField = new JTextField();
         JButton searchButton = new JButton("🔍");
-        searchButton.addActionListener(e ->
+        searchButton.addActionListener(_ ->
                 inventoryController.onSearchInventory(searchField.getText())
         );
         JPanel top = new JPanel(new BorderLayout(5, 5));
@@ -72,7 +72,7 @@ public class InventoryView extends JPanel {
 
         JButton openFormButton = new JButton("Agregar Producto");
         openFormButton.setPreferredSize(new Dimension(180, 30));
-        openFormButton.addActionListener(e -> inventoryController.onOpenCreateForm());
+        openFormButton.addActionListener(_ -> inventoryController.onOpenCreateForm());
         content.add(openFormButton, BorderLayout.SOUTH);
 
         inventoryController.init();
@@ -123,11 +123,11 @@ public class InventoryView extends JPanel {
 
             JButton delete = new JButton("🗑️");
             delete.setPreferredSize(new Dimension(40, 40));
-            delete.addActionListener(e -> inventoryController.onOpenDeleteForm(item));
+            delete.addActionListener(_ -> inventoryController.onOpenDeleteForm(item));
 
             JButton edit = new JButton("✎");
             edit.setPreferredSize(new Dimension(40, 40));
-            edit.addActionListener(e -> inventoryController.onOpenEditForm(item));
+            edit.addActionListener(_ -> inventoryController.onOpenEditForm(item));
 
             actionsPanel.add(delete, BorderLayout.WEST);
             actionsPanel.add(edit, BorderLayout.EAST);

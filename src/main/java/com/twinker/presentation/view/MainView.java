@@ -89,7 +89,7 @@ public class MainView extends JFrame {
             btn.setToolTipText(name);
             btn.setForeground(Color.WHITE);
             btn.setFont(btn.getFont().deriveFont(Font.BOLD, 18f));
-            btn.addActionListener(e -> showCard(name));
+            btn.addActionListener(_ -> showCard(name));
             sidebar.add(btn);
             sidebar.add(Box.createVerticalStrut(12));
             group.add(btn);

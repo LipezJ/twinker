@@ -43,7 +43,7 @@ public class SecurityPinFormDialog extends FormDialog {
         updateBtn.setBackground(new Color(52, 152, 219));
         updateBtn.setForeground(Color.WHITE);
 
-        updateBtn.addActionListener(e -> controller.onVerifyPin(this, pinLabel.getText()));
+        updateBtn.addActionListener(_ -> controller.onVerifyPin(this, pinLabel.getText()));
 
         finalizeDialog();
     }

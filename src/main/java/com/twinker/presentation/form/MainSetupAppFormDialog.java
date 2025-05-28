@@ -38,7 +38,7 @@ public class MainSetupAppFormDialog extends FormDialog {
         addLabel("Por favor introduzca su pin para empezar:");
         JTextField pinField = addTextField("");
         JButton saveButton = addButton("Guardar");
-        saveButton.addActionListener(e -> controller.onSavePin(this, pinField.getText()));
+        saveButton.addActionListener(_ -> controller.onSavePin(this, pinField.getText()));
 
         finalizeDialog();
     }

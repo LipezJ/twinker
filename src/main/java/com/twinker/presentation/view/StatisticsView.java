@@ -60,7 +60,7 @@ public class StatisticsView extends JPanel {
         leftPanel.setBorder(BorderFactory.createTitledBorder("Ventas"));
         leftPanel.setBackground(getBackground());
         JComboBox<String> chartSelect = new JComboBox<>(new String[]{ "Semanal", "Mensual", "Anual" });
-        chartSelect.addActionListener(e ->
+        chartSelect.addActionListener(_ ->
                 statisticsController.onSelectChart(chartSelect.getSelectedIndex())
         );
         leftPanel.add(chartSelect, BorderLayout.NORTH);

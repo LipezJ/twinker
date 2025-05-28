@@ -65,11 +65,11 @@ public class SalesClientFormDialog extends FormDialog {
         gbc.gridy++;
 
         JButton selectButton = addButton("Seleccionar");
-        selectButton.addActionListener(e -> controller.onClientSelected(this, clientList));
+        selectButton.addActionListener(_ -> controller.onClientSelected(this, clientList));
         gbc.gridy++;
 
         JButton continueButton = addButton("Continuar");
-        continueButton.addActionListener(e -> controller.onContinueWithoutClient(this));
+        continueButton.addActionListener(_ -> controller.onContinueWithoutClient(this));
         gbc.gridy++;
 
         finalizeDialog();

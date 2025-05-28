@@ -53,7 +53,8 @@ public class ClientEditFormDialog extends FormDialog {
         updateBtn.setBackground(new Color(52, 152, 219));
         updateBtn.setForeground(Color.WHITE);
 
-        updateBtn.addActionListener(e ->
+        updateBtn.addActionListener(
+                _ ->
                 controller.onEditClient(
                 this,
                         client.getId(),

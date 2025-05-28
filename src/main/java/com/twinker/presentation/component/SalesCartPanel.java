@@ -68,11 +68,11 @@ public class SalesCartPanel extends JPanel {
         JButton cancelButton = new JButton("Cancelar");
         cancelButton.setBackground(Color.RED);
         cancelButton.setForeground(Color.WHITE);
-        cancelButton.addActionListener(e -> controller.onCancelSale());
+        cancelButton.addActionListener(_ -> controller.onCancelSale());
         JButton confirmButton = new JButton("Confirmar venta");
         confirmButton.setBackground(new Color(46,204,113));
         confirmButton.setForeground(Color.WHITE);
-        confirmButton.addActionListener(e -> controller.onConfirmSale());
+        confirmButton.addActionListener(_ -> controller.onConfirmSale());
         buttonsPanel.add(cancelButton);
         buttonsPanel.add(confirmButton);
 

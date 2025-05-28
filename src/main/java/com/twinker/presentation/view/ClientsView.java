@@ -51,7 +51,7 @@ public class ClientsView extends JPanel {
 
         JTextField searchField = new JTextField();
         JButton searchButton = new JButton("🔍");
-        searchButton.addActionListener(e ->
+        searchButton.addActionListener(_ ->
                 clientsController.onSearchClients(searchField.getText())
         );
         JPanel top = new JPanel(new BorderLayout(5, 5));
@@ -70,7 +70,7 @@ public class ClientsView extends JPanel {
 
         JButton openFormButton = new JButton("Agregar Cliente");
         openFormButton.setPreferredSize(new Dimension(180, 30));
-        openFormButton.addActionListener(e -> clientsController.onOpenCreateForm());
+        openFormButton.addActionListener(_ -> clientsController.onOpenCreateForm());
         content.add(openFormButton, BorderLayout.SOUTH);
 
         clientsController.initClients();
@@ -117,11 +117,11 @@ public class ClientsView extends JPanel {
 
             JButton delete = new JButton("🗑️");
             delete.setPreferredSize(new Dimension(40, 40));
-            delete.addActionListener(e -> clientsController.onOpenDeleteForm(client));
+            delete.addActionListener(_ -> clientsController.onOpenDeleteForm(client));
 
             JButton edit = new JButton("✎");
             edit.setPreferredSize(new Dimension(40, 40));
-            edit.addActionListener(e -> clientsController.onOpenEditForm(client));
+            edit.addActionListener(_ -> clientsController.onOpenEditForm(client));
 
             actionsPanel.add(delete, BorderLayout.WEST);
             actionsPanel.add(edit, BorderLayout.EAST);

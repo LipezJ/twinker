@@ -55,7 +55,7 @@ public class SalesProductCard extends JPanel {
 
         JButton addBtn = new JButton("+");
         addBtn.setPreferredSize(new Dimension(40,40));
-        addBtn.addActionListener(e -> controller.onAddToCart(entry));
+        addBtn.addActionListener(_ -> controller.onAddToCart(entry));
         add(addBtn, BorderLayout.EAST);
     }
 

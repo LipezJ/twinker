@@ -52,7 +52,7 @@ public class SalesConfirmFormDialog extends FormDialog {
         gbc.gridy++;
 
         JButton confirmBtn = addButton("Confirmar");
-        confirmBtn.addActionListener(e -> controller.onConfirmBill(this));
+        confirmBtn.addActionListener(_ -> controller.onConfirmBill(this));
 
         finalizeDialog();
     }
