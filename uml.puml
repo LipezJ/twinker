@@ -1,0 +1,639 @@
+@startuml
+!pragma layoutengine dot
+left to right direction
+skinparam linetype ortho
+
+skinparam diagramMargin 10
+skinparam classPadding 10
+skinparam nodesep 20
+skinparam ranksep 20
+
+skinparam graphvizDotOptions "-Goverlap=scale -Gpack=true -Gsep=1 -Gmargin=0"
+
+
+class com.twinker.domain.collection.InventoryEntry {
+- Product product
+- Inventory inventory
++ String getId()
++ String getProductId()
++ int getStock()
++ String getName()
++ double getPrice()
++ String getDescription()
++ Inventory inventory()
++ Product product()
+}
+
+
+class com.twinker.persistence.repository.BillRepository {
++ List<Bill> getBillsSince(LocalDate)
+}
+
+class com.twinker.persistence.security.PinKeyStoreStorage {
+- {static} String KEYSTORE_TYPE
+- {static} char[] STORE_PASSWORD
+- {static} String KEY_ALIAS
+- {static} File KEYSTORE_FILE
++ {static} void storePin(String)
++ {static} boolean verifyPin(String)
++ {static} boolean existsPin()
++ {static} void clearPin()
+}
+
+
+class com.twinker.presentation.component.CircleButton {
+- int diameter
+- Shape shape
+# void paintComponent(Graphics)
++ boolean contains(int,int)
+}
+
+
+class com.twinker.persistence.repository.SaleRepository {
++ List<Sale> getSalesByBillId(String)
++ void registerSales(List<SaleEntry>)
+}
+
+class com.twinker.presentation.controller.ClientsController {
+- ClientsView view
+- ClientService clientService
++ void initClients()
++ void onLoadClients()
++ void onSearchClients(String)
++ void onAddClient(JDialog,String,String,String)
++ void onDeleteClient(Client)
++ void onEditClient(JDialog,String,String,String,String)
++ void onOpenCreateForm()
++ void onOpenDeleteForm(Client)
++ void onOpenEditForm(Client)
+}
+
+
+class com.twinker.presentation.component.BillSummarize {
+}
+class com.twinker.application.security.PinServiceException {
+}
+class com.twinker.domain.entity.Client {
+- String id
+- String name
+- String phone
+- String email
++ String getName()
++ void setName(String)
++ String getPhone()
++ void setPhone(String)
++ String getEmail()
++ void setEmail(String)
++ String getId()
+}
+
+
+class com.twinker.domain.entity.Product {
+- String id
+- String name
+- double price
+- String description
++ String getName()
++ void setName(String)
++ double getPrice()
++ void setPrice(double)
++ String getDescription()
++ void setDescription(String)
++ String getId()
+}
+
+
+class com.twinker.presentation.controller.AccountingController {
++ AccountingView view
++ BillService billService
++ ClientService clientService
++ InventoryService inventoryService
++ String VOID_FILTER
++ void initAccounting()
++ void loadAccounting()
++ void loadFilters()
++ void onLoadAccounting()
++ void onFilterBills(JComboBox<String>,JComboBox<String>)
++ void onOpenBillDialog(BillEntry)
+}
+
+
+class com.twinker.presentation.form.SecurityPinFormDialog {
+}
+class com.twinker.persistence.utils.EntityMapper {
+- {static} String NULL
++ {static} String[] entityToArray(Entity)
++ {static} T arrayToEntity(Class<T>,String[])
+- {static} Object castValue(Class<?>,String)
+}
+
+
+class com.twinker.presentation.form.AccountingBillFormDialog {
+}
+class com.twinker.presentation.form.InventoryEditFormDialog {
+}
+class com.twinker.domain.collection.BillList {
+- Bill bill
+- List<SaleEntry> sales
+- double amount
++ Bill getBill()
++ List<SaleEntry> getSales()
++ List<Product> getProducts()
++ double getAmount()
++ int getQuantityInBillByProduct(Product)
++ void addSale(Product)
++ Optional<SaleEntry> getSaleByProductId(String)
++ void removeSale(SaleEntry)
++ void removeOneSale(SaleEntry)
++ Optional<Product> getProductById(String)
++ String getId()
+}
+
+
+class com.twinker.persistence.utils.CsvHandler {
+- {static} Logger logger
+- String filePath
++ List<String[]> readCSV()
++ void writeCSV(List<String[]>)
+}
+
+
+class com.twinker.presentation.component.SalesCartPanel {
+- JPanel itemsContainer
+- SalesController controller
+- void showButtons(SalesController)
++ void showCartItems(List<SaleEntry>)
+}
+
+
+class com.twinker.presentation.view.SalesView {
+- JTextField searchField
+- JPanel productsPanel
+- SalesCartPanel cartPanel
+- SalesController controller
++ void showClientForm(List<Client>)
++ void showConfirmForm(List<SaleEntry>,double)
++ void showProducts(List<InventoryEntry>)
++ void showProductsCurrentStock(Map<InventoryEntry,Integer>)
++ void showCart(List<SaleEntry>)
+}
+
+
+class com.twinker.presentation.view.AccountingView {
+- JPanel content
+- JPanel salesPanel
+- JPanel filtersPanel
+- AccountingController accountingController
++ void showSales(List<BillEntry>)
++ void showFilters(List<Client>,List<Product>)
++ void showDetailForm(BillEntry)
+}
+
+
+class com.twinker.presentation.view.MainView {
+- {static} Logger logger
+- CardLayout cardLayout
+- JPanel mainPanel
+- MainController mainController
+- void initUI()
+- void showCard(String)
+- JPanel showPlaceholder(String)
++ void showSetUpForm()
+}
+
+
+class com.twinker.presentation.view.InventoryView {
+- JPanel content
+- JPanel itemsPanel
+- InventoryController inventoryController
++ void showInventory(List<InventoryEntry>)
++ void showCreateForm()
++ void showEditForm(InventoryEntry)
++ void showConfirmDeleteDialog(InventoryEntry)
+}
+
+
+class com.twinker.domain.entity.Inventory {
+- String id
+- String productId
+- int stock
++ String getProductId()
++ int getStock()
++ void setStock(int)
++ String getId()
+}
+
+
+class com.twinker.presentation.form.ClientFormDialog {
+}
+class com.twinker.application.BillService {
+- BillRepository billRepository
+- ClientRepository clientRepository
+- ProductRepository productRepository
+- SaleRepository saleRepository
++ List<BillEntry> getAllBillsSorted()
++ List<BillEntry> filterBills(String,String)
+}
+
+
+class com.twinker.presentation.form.SalesClientFormDialog {
+}
+class com.twinker.presentation.view.StatisticsView {
+- JPanel chartPanel
+- JPanel topProductsPanel
+- JPanel topClientChart
+- StatisticsController statisticsController
++ void showChart(Map<String,Double>)
++ void showTopProducts(Map<String,Integer>)
++ void showTopClientChart(Map<String,Double>)
+}
+
+
+class com.twinker.data.config.DataConfig {
+- {static} Logger logger
+- {static} Properties properties
++ {static} String get(String)
+}
+
+
+class com.twinker.domain.entity.Bill {
+- String id
+- String clientId
+- String date
+- double amount
++ String getClientId()
++ void setClientId(String)
++ String getDate()
++ void setDate(String)
++ double getAmount()
++ void setAmount(double)
++ String getId()
+}
+
+
+abstract class com.twinker.presentation.form.FormDialog {
+# GridBagConstraints gbc
+# void addLabel(String)
+# JTextField addTextField(String)
+# JButton addButton(String)
+# void finalizeDialog()
+}
+
+
+class com.twinker.Main {
++ {static} void main(String[])
+}
+
+class com.twinker.presentation.controller.SalesController {
+- SalesView view
+- BillingService billingService
+- ClientService clientService
+- InventoryService inventoryService
++ void init()
++ void onLoadSales()
++ void onSearchProducts(String)
++ void onClientSelected(JDialog,JList<Client>)
++ void onContinueWithoutClient(JDialog)
++ void onAddToCart(InventoryEntry)
++ void onRemoveFromCart(SaleEntry)
++ void onRemoveOneFromCart(SaleEntry)
++ void onCancelSale()
++ void onConfirmSale()
++ void onConfirmBill(JDialog)
+- void updateProducts()
+}
+
+
+class com.twinker.presentation.controller.InventoryController {
+- InventoryView view
+- InventoryService inventoryService
++ void init()
++ void onLoadInventory()
++ void onSearchInventory(String)
++ void onAddEntry(JDialog,String,String,String,String)
++ void onDeleteEntry(InventoryEntry)
++ void onEditEntry(JDialog,String,String,String,String,String)
++ void onOpenCreateForm()
++ void onOpenDeleteForm(InventoryEntry)
++ void onOpenEditForm(InventoryEntry)
+}
+
+
+class com.twinker.presentation.view.ClientsView {
+- JPanel content
+- JPanel clientsPanel
+- ClientsController clientsController
++ void showClients(List<Client>)
++ void showCreateForm()
++ void showEditForm(Client)
++ void showConfirmDeleteDialog(Client)
+}
+
+
+class com.twinker.application.HomeService {
+- int OUT_OF_STOCK_MARGIN
+- InventoryRepository inventoryRepository
+- ProductRepository productRepository
++ Map<String,Integer> getProductsOutOffStock()
+}
+
+
+class com.twinker.presentation.controller.MainController {
+- MainView view
+- PinService pinService
++ void init()
++ void onSavePin(JDialog,String)
+}
+
+
+class com.twinker.persistence.repository.ClientRepository {
+}
+class com.twinker.presentation.component.SalesProductCard {
+- JPanel info
++ void updateInfo(String,int,double)
+}
+
+
+class com.twinker.application.StatisticsService {
+- ClientRepository clientRepository
+- BillRepository billRepository
+- ProductRepository productRepository
+- SaleRepository saleRepository
++ Map<String,Double> getWeeklySales()
++ Map<String,Double> getMonthlySales()
++ Map<String,Double> getAnnualSales()
++ Map<String,Integer> getMonthlyTopProducts()
++ Map<String,Double> getMonthlyTopClients()
+}
+
+
+class com.twinker.domain.collection.BillEntry {
+- Bill bill
+- List<SaleEntry> saleEntries
+- Client client
++ String getId()
++ String getDate()
++ String getClientName()
++ double getAmount()
++ boolean equals(Object)
++ int hashCode()
++ Bill bill()
++ Client client()
++ List<SaleEntry> saleEntries()
+}
+
+
+class com.twinker.presentation.form.InventoryFormDialog {
+}
+class com.twinker.persistence.repository.InventoryRepository {
++ Optional<Inventory> getByProductId(String)
+}
+
+class com.twinker.presentation.form.SalesConfirmFormDialog {
+}
+class com.twinker.presentation.controller.HomeController {
+- HomeView view
+- HomeService homeService
++ void init()
++ void onLoadHome()
+}
+
+
+abstract class com.twinker.presentation.controller.ProtectedController {
+- boolean adminAllowed
++ void onVerifyPin(JDialog,String)
++ boolean openVerifyPinForm(JFrame)
+}
+
+
+class com.twinker.presentation.controller.StatisticsController {
+- StatisticsView view
+- StatisticsService statisticsService
++ void initStatistics()
++ void onLoadStatistics()
++ void onSelectChart(int)
+}
+
+
+class com.twinker.persistence.repository.ProductRepository {
+}
+class com.twinker.presentation.form.ClientEditFormDialog {
+}
+class com.twinker.presentation.component.SalesCartItem {
+}
+class com.twinker.application.security.PinService {
++ void configurePin(String)
++ boolean verifyPin(String)
++ boolean existsPin()
++ void clearPin()
+}
+
+class com.twinker.presentation.view.HomeView {
+- JPanel alertsPanel
+- JPanel wrapAlertsPanel()
++ void showAlerts(Map<String,Integer>)
+- JPanel createAlertPanel(String,Integer)
+}
+
+
+class com.twinker.application.BillingService {
+- BillList billList
+- Client client
+- BillRepository billRepository
+- InventoryRepository inventoryRepository
+- SaleRepository saleRepository
++ void setClient(Client)
++ void addProduct(Product)
++ List<SaleEntry> getSales()
++ double getAmount()
++ int getQuantityInBillByProduct(Product)
++ void removeAll()
++ void removeSale(SaleEntry)
++ void removeOneSale(SaleEntry)
++ void confirmBill()
++ Map<InventoryEntry,Integer> updateCurrentProductInventory(List<InventoryEntry>)
+}
+
+
+class com.twinker.domain.entity.Sale {
+- String id
+- String billId
+- String productId
+- int quantity
+- double unitPrice
++ String getId()
++ String getProductId()
++ String getBillId()
++ int getQuantity()
++ double getUnitPrice()
++ void setQuantity(int)
++ void aggregate()
++ void subtract()
+}
+
+
+abstract class com.twinker.persistence.repository.Repository {
+- {static} Logger logger
+- CsvHandler csvHandler
+- Class<T> type
++ List<T> getAll()
++ Optional<T> getById(String)
++ void insert(T)
++ void insertAll(List<T>)
++ void update(T)
++ void delete(T)
++ void deleteAll(T)
++ Optional<T> searchById(String)
++ void deleteById(String)
+}
+
+
+abstract class com.twinker.domain.entity.Entity {
++ {abstract}String getId()
+}
+
+class com.twinker.domain.collection.SaleEntry {
+- Sale sale
+- Product product
++ String getId()
++ String getProductId()
++ int getQuantity()
++ String getProductName()
++ double getUnitPrice()
++ Sale sale()
++ Product product()
+}
+
+
+class com.twinker.application.InventoryService {
++ InventoryRepository inventoryRepository
++ ProductRepository productRepository
++ List<InventoryEntry> getAllItems()
++ List<Product> getProducts()
++ List<InventoryEntry> searchInventory(String)
++ void addEntry(String,double,String,int)
++ void editEntry(String,String,double,String,int)
++ void deleteEntry(String,String)
+}
+
+
+class com.twinker.presentation.form.MainSetupAppFormDialog {
+}
+class com.twinker.application.ClientService {
++ ClientRepository clientRepository
++ List<Client> getAllClients()
++ List<Client> searchClient(String)
++ void addClient(String,String,String)
++ void editClient(String,String,String,String)
++ void deleteEntry(String)
+}
+
+
+
+
+com.twinker.persistence.repository.Repository <|-- com.twinker.persistence.repository.BillRepository
+com.twinker.persistence.repository.Repository <|-- com.twinker.persistence.repository.SaleRepository
+com.twinker.presentation.controller.ProtectedController <|-- com.twinker.presentation.controller.ClientsController
+com.twinker.application.security.RuntimeException <|-- com.twinker.application.security.PinServiceException
+com.twinker.domain.entity.Entity <|-- com.twinker.domain.entity.Client
+com.twinker.domain.entity.Entity <|-- com.twinker.domain.entity.Product
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.SecurityPinFormDialog
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.AccountingBillFormDialog
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.InventoryEditFormDialog
+com.twinker.domain.entity.Entity <|-- com.twinker.domain.entity.Inventory
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.ClientFormDialog
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.SalesClientFormDialog
+com.twinker.domain.entity.Entity <|-- com.twinker.domain.entity.Bill
+com.twinker.presentation.controller.ProtectedController <|-- com.twinker.presentation.controller.InventoryController
+com.twinker.persistence.repository.Repository <|-- com.twinker.persistence.repository.ClientRepository
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.InventoryFormDialog
+com.twinker.persistence.repository.Repository <|-- com.twinker.persistence.repository.InventoryRepository
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.SalesConfirmFormDialog
+com.twinker.persistence.repository.Repository <|-- com.twinker.persistence.repository.ProductRepository
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.ClientEditFormDialog
+com.twinker.domain.entity.Entity <|-- com.twinker.domain.entity.Sale
+com.twinker.presentation.form.FormDialog <|-- com.twinker.presentation.form.MainSetupAppFormDialog
+
+com.twinker.presentation.form.SecurityPinFormDialog <-- com.twinker.presentation.controller.ProtectedController
+com.twinker.presentation.form.AccountingBillFormDialog <-- com.twinker.presentation.view.AccountingView
+com.twinker.presentation.form.InventoryEditFormDialog <-- com.twinker.presentation.view.InventoryView
+com.twinker.presentation.form.InventoryFormDialog <-- com.twinker.presentation.view.InventoryView
+com.twinker.presentation.form.ClientFormDialog <-- com.twinker.presentation.view.ClientsView
+com.twinker.presentation.form.SalesClientFormDialog <-- com.twinker.presentation.view.StatisticsView
+com.twinker.presentation.form.SalesConfirmFormDialog <-- com.twinker.presentation.view.SalesView
+com.twinker.presentation.form.ClientEditFormDialog <-- com.twinker.presentation.view.ClientsView
+com.twinker.presentation.form.MainSetupAppFormDialog <-- com.twinker.presentation.view.MainView
+
+com.twinker.presentation.view.MainView -- com.twinker.presentation.controller.MainController
+com.twinker.presentation.view.ClientsView -- com.twinker.presentation.controller.ClientsController
+com.twinker.presentation.view.InventoryView -- com.twinker.presentation.controller.InventoryController
+com.twinker.presentation.view.StatisticsView -- com.twinker.presentation.controller.StatisticsController
+com.twinker.presentation.view.HomeView -- com.twinker.presentation.controller.HomeController
+com.twinker.presentation.view.SalesView -- com.twinker.presentation.controller.SalesController
+com.twinker.presentation.view.AccountingView -- com.twinker.presentation.controller.AccountingController
+
+com.twinker.presentation.component.CircleButton <-- com.twinker.presentation.view.MainView
+com.twinker.presentation.component.BillSummarize <-- com.twinker.presentation.form.AccountingBillFormDialog
+com.twinker.presentation.component.BillSummarize <-- com.twinker.presentation.form.SalesConfirmFormDialog
+com.twinker.presentation.component.SalesCartPanel <-- com.twinker.presentation.view.SalesView
+com.twinker.presentation.component.SalesProductCard <-- com.twinker.presentation.view.SalesView
+com.twinker.presentation.component.SalesCartItem <-- com.twinker.presentation.component.SalesCartPanel 
+
+com.twinker.presentation.view.MainView <-- com.twinker.Main
+
+com.twinker.presentation.controller.AccountingController <-- com.twinker.application.BillService
+com.twinker.presentation.controller.AccountingController <-- com.twinker.application.ClientService
+com.twinker.presentation.controller.AccountingController <-- com.twinker.application.InventoryService
+com.twinker.presentation.controller.ClientsController <-- com.twinker.application.ClientService
+com.twinker.presentation.controller.HomeController <-- com.twinker.application.HomeService
+com.twinker.presentation.controller.InventoryController <-- com.twinker.application.InventoryService
+com.twinker.presentation.controller.MainController <-- com.twinker.application.security.PinService
+com.twinker.presentation.controller.ProtectedController <-- com.twinker.application.security.PinService
+com.twinker.presentation.controller.SalesController <-- com.twinker.application.BillingService
+com.twinker.presentation.controller.SalesController <-- com.twinker.application.ClientService
+com.twinker.presentation.controller.SalesController <-- com.twinker.application.InventoryService
+com.twinker.presentation.controller.StatisticsController <-- com.twinker.application.StatisticsService
+
+com.twinker.persistence.utils.CsvHandler <-- com.twinker.persistence.repository.Repository
+com.twinker.persistence.utils.EntityMapper <-- com.twinker.persistence.repository.Repository
+
+com.twinker.persistence.repository.BillRepository <-- com.twinker.data.config.DataConfig
+com.twinker.persistence.repository.SaleRepository <-- com.twinker.data.config.DataConfig
+com.twinker.persistence.repository.ClientRepository <-- com.twinker.data.config.DataConfig
+com.twinker.persistence.repository.InventoryRepository <-- com.twinker.data.config.DataConfig
+com.twinker.persistence.repository.ProductRepository <-- com.twinker.data.config.DataConfig
+
+com.twinker.persistence.repository.BillRepository <-- com.twinker.domain.entity.Bill
+com.twinker.persistence.repository.SaleRepository <-- com.twinker.domain.entity.Sale
+com.twinker.persistence.repository.ClientRepository <-- com.twinker.domain.entity.Client
+com.twinker.persistence.repository.InventoryRepository <-- com.twinker.domain.entity.Inventory
+com.twinker.persistence.repository.ProductRepository <-- com.twinker.domain.entity.Product
+
+com.twinker.application.BillingService <-- com.twinker.persistence.repository.BillRepository
+com.twinker.application.BillingService <-- com.twinker.persistence.repository.InventoryRepository
+com.twinker.application.BillingService <-- com.twinker.persistence.repository.SaleRepository
+
+com.twinker.application.ClientService <-- com.twinker.persistence.repository.ClientRepository
+com.twinker.application.InventoryService <-- com.twinker.persistence.repository.InventoryRepository
+com.twinker.application.InventoryService <-- com.twinker.persistence.repository.ProductRepository
+
+com.twinker.application.StatisticsService <-- com.twinker.persistence.repository.BillRepository
+com.twinker.application.StatisticsService <-- com.twinker.persistence.repository.ClientRepository
+com.twinker.application.StatisticsService <-- com.twinker.persistence.repository.ProductRepository
+com.twinker.application.StatisticsService <-- com.twinker.persistence.repository.SaleRepository
+
+com.twinker.application.HomeService <-- com.twinker.persistence.repository.InventoryRepository
+com.twinker.application.HomeService <-- com.twinker.persistence.repository.ProductRepository
+
+com.twinker.application.security.PinService <-- com.twinker.persistence.security.PinKeyStoreStorage
+com.twinker.application.security.PinServiceException <-- com.twinker.application.security.PinService
+com.twinker.application.security.RuntimeException <-- com.twinker.application.security.PinService
+
+com.twinker.application.BillingService <-- com.twinker.domain.collection.BillList
+com.twinker.application.BillingService <-- com.twinker.domain.collection.SaleEntry
+com.twinker.application.BillService <-- com.twinker.domain.collection.BillEntry
+com.twinker.application.InventoryService <-- com.twinker.domain.collection.InventoryEntry
+
+
+
+@enduml
